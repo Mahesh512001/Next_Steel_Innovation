@@ -26,7 +26,7 @@ export const products = [
       
       "/products/kitchen-spice-rack/NSi-01/2.jpg",
       "/products/kitchen-spice-rack/NSi-01/3.jpg",
-       "/products/kitchen-spice-rack/NSi-01/4.jpg",
+      "/products/kitchen-spice-rack/NSi-01/4.avif",
      
     
     ],
@@ -56,7 +56,7 @@ export const products = [
 
     images: [
     "/products/kitchen-spice-rack/NSi-117/2-Shelf Mesh Spice Rack ( Silver ).jpg",
-      "/products/kitchen-spice-rack/NSi-117/12 Inch.jpg",
+      "/products/kitchen-spice-rack/NSi-117/12 Inch.png",
        "/products/kitchen-spice-rack/NSi-117/3.jpg",
     ],
   },
@@ -84,9 +84,9 @@ export const products = [
     available: true,
 
     images: [
-       "/products/kitchen-spice-rack/NSi-118/2.jpg",
-      "/products/kitchen-spice-rack/NSi-118/23.jpg",
-       "/products/kitchen-spice-rack/NSi-118/4.jpg",
+       "/products/kitchen-spice-rack/NSi-018/2.jpg",
+      "/products/kitchen-spice-rack/NSi-018/23.jpg",
+       "/products/kitchen-spice-rack/NSi-018/4.png",
     ],
   },
 
@@ -113,9 +113,9 @@ export const products = [
     available: true,
 
     images: [
-      "/products/kitchen-spice-rack/NSi-016/2.jpg",
-      "/products/kitchen-spice-rack/NSi-016/3.jpg",
-       "/products/kitchen-spice-rack/NSi-016/4.jpg",
+      "/products/kitchen-spice-rack/NSi-016/2.png",
+      "/products/kitchen-spice-rack/NSi-016/3.png",
+       "/products/kitchen-spice-rack/NSi-016/4.png",
     ],
   },
 
@@ -142,9 +142,9 @@ export const products = [
     available: true,
 
     images: [
-      "/products/kitchen-spice-rack/NSi-006/2.jpg",
-      "/products/kitchen-spice-rack/NSi-006/3.jpg",
-       "/products/kitchen-spice-rack/NSi-006/4.jpg",
+      "/products/kitchen-spice-rack/NSi-006/2.png",
+      "/products/kitchen-spice-rack/NSi-006/3.png",
+       "/products/kitchen-spice-rack/NSi-006/4.png",
     ],
   },
 
@@ -171,9 +171,9 @@ export const products = [
     available: true,
 
     images: [
-       "/products/kitchen-spice-rack/NSi-007/2.jpg",
-      "/products/kitchen-spice-rack/NSi-007/3-Shelf Mesh Spice Rack ( Silver ).jpg",
-       "/products/kitchen-spice-rack/NSi-007/4.jpg",
+       "/products/kitchen-spice-rack/NSi-007/2.png",
+      "/products/kitchen-spice-rack/NSi-007/3-Shelf Mesh Spice Rack ( Silver ).png",
+       "/products/kitchen-spice-rack/NSi-007/4.png",
     ],
   },
 
@@ -200,9 +200,9 @@ export const products = [
     available: true,
 
     images: [
-      "/products/kitchen-spice-rack/NSi-008/2.jpg",
-      "/products/kitchen-spice-rack/NSi-008/3.jpg",
-       "/products/kitchen-spice-rack/NSi-008/4.jpg",
+      "/products/kitchen-spice-rack/NSi-008/2.png",
+      "/products/kitchen-spice-rack/NSi-008/3.png",
+       "/products/kitchen-spice-rack/NSi-008/4.png",
     ],
   },
 

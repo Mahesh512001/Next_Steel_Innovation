@@ -306,7 +306,7 @@ function Footer() {
       ================================= */}
 
       <a
-        href="https://wa.me/917567567500"
+        href="https://wa.me/7839072326"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="WhatsApp"

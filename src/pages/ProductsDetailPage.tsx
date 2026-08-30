@@ -146,18 +146,18 @@ export default function ProductDetailPage() {
 
                 {images.map((image, index) => (
                   <div
-                    key={image}
+                    key={`${image}-${index}`}
                     className="col-4 col-sm-3"
                   >
                     <button
                       type="button"
                       onClick={() => setSelectedImage(index)}
                       aria-label={`View product image ${index + 1}`}
-                      aria-current={
-                        safeSelectedImage === index
-                          ? "true"
-                          : undefined
-                      }
+                      // aria-current={
+                      //   safeSelectedImage === index
+                      //     ? "true"
+                      //     : undefined
+                      // }
                       className="p-0 w-100 overflow-hidden rounded-3 bg-white"
                       style={{
                         aspectRatio: "1 / 1",
@@ -170,9 +170,10 @@ export default function ProductDetailPage() {
                       <img
                         src={image}
                         alt={`${product.productName} thumbnail ${index + 1}`}
-                        className="w-100 h-100 object-fit-cover"
+                        className="w-100 h-100 "
+                        style={{ objectFit: "cover" ,display: "block"}}
                         loading="lazy"
-                        decoding="async"
+                        // decoding="async"
                       />
                     </button>
                   </div>

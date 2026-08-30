@@ -10,6 +10,7 @@ export default function ProductCard({
   product,
 }: ProductCardProps) {
   const productId = encodeURIComponent(product.itemCode);
+  const productImage = product.images?.[0] ?? "";
 
   return (
     <article className="product-card overflow-hidden bg-white">
@@ -22,13 +23,17 @@ export default function ProductCard({
         <div className="product-image d-flex align-items-center justify-content-center">
 
           {/* Temporary image area */}
-          <div className="text-center">
-            <i className="bi bi-box-seam product-placeholder-icon" />
-
-            <p className="product-placeholder-text">
-              Product Image
-            </p>
-          </div>
+          {productImage ? (
+            <img
+              src={productImage}
+              alt={product.productName}
+              className="img- fluid h-100 w-100 object-fit-cover"
+            />
+          ) : (
+            <div className="text-center">
+              <i className="bi bi-box-seam product-placeholder-icon" />
+            </div>
+          )}
 
         </div>
       </Link>
