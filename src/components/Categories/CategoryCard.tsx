@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 import type { ProductCategory } from "../../types/category.types";
 
 interface CategoryCardProps {
@@ -7,8 +7,8 @@ interface CategoryCardProps {
 
 export default function CategoryCard({ category }: CategoryCardProps) {
   return (
-    <a
-      href={`/category/${category.slug}`}
+    <Link
+       to={`/category/${category.slug}`}
       className="category-card d-flex flex-column align-items-center text-decoration-none"
     >
       <div className="category-image d-flex align-items-center justify-content-center overflow-hidden rounded-circle border border-2 bg-light p-2">
@@ -70,6 +70,6 @@ export default function CategoryCard({ category }: CategoryCardProps) {
           object-fit: cover;
         }
       `}</style>
-    </a>
+    </Link>
   );
 }

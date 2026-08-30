@@ -8,13 +8,14 @@ import { navigation } from "./data/navigation.data";
 import HomePage from "./pages/HomePage";
 import Footer from "./components/layout/Footer";
 import About from "./pages/About";
+import ScrollToTop from "./components/common/ScrollToTop";
 
 export default function App() {
   return (
     <BrowserRouter>
 
       <Navbar navigation={navigation} />
-
+      <ScrollToTop />
       <Routes>
 
         {/* HOME */}
@@ -36,7 +37,10 @@ export default function App() {
           path="/about"
           element={<About />}
         />
-
+          <Route
+          path="/category/:slug"
+          element={<CategoryPage />}
+        />
         {/* PRODUCT DETAIL */}
         <Route
           path="/product/:id"
