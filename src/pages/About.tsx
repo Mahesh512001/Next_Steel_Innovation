@@ -110,7 +110,7 @@ function About() {
             <div className="d-flex flex-column flex-sm-row gap-3 mt-4 mt-lg-5">
 
               <a
-                href="/products"
+              
                 className="about-btn about-btn-primary"
               >
                 Explore Products
@@ -118,7 +118,7 @@ function About() {
               </a>
 
               <a
-                href="/contact"
+               
                 className="about-btn about-btn-outline"
               >
                 Contact Us
@@ -598,7 +598,7 @@ function About() {
             <div className="d-flex flex-column flex-sm-row justify-content-center gap-3 mt-4">
 
               <a
-                href="/products"
+              
                 className="about-btn about-btn-primary"
               >
                 View Products
@@ -606,7 +606,7 @@ function About() {
               </a>
 
               <a
-                href="/contact"
+               
                 className="about-btn about-btn-light"
               >
                 Get in Touch
