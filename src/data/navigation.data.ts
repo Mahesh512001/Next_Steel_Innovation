@@ -10,12 +10,7 @@ export const navigation: NavigationItem[] = [
     href: "/",
     hasDropdown: false,
   },
-  {
-    id:"about",
-    label:"About",
-    href:"/about",
-    hasDropdown:false,
-  },
+ 
 
   // First 6 categories are shown directly
   ...categories
@@ -44,7 +39,15 @@ export const navigation: NavigationItem[] = [
                 })),
             },
           ],
+          
         },
       ]
     : []),
+
+      {
+    id: "about",
+    label: "About",
+    href: "/about",
+    hasDropdown: false,
+  },
 ];

@@ -202,7 +202,7 @@ export const products = [
     images: [
       "/products/kitchen-spice-rack/NSi-008/2.png",
       "/products/kitchen-spice-rack/NSi-008/3.png",
-       "/products/kitchen-spice-rack/NSi-008/4.png",
+       "/products/kitchen-spice-rack/NSi-008/4.jpg",
     ],
   },
 
@@ -589,7 +589,7 @@ export const products = [
     links: {
       flipkart: "",
       amazon: "",
-      myntra: "",
+      myntra: "",  
     },
 
     description:

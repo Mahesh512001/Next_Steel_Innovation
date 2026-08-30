@@ -23,16 +23,18 @@ export default function App() {
           element={<HomePage />}
         />
 
-        {/* ABOUT */}
-        <Route
-          path="/about"
-          element={<About />}
-        />
+      
 
         {/* CATEGORY */}
         <Route
           path="/category/:slug"
           element={<CategoryPage />}
+        />
+
+          {/* ABOUT */}
+        <Route
+          path="/about"
+          element={<About />}
         />
 
         {/* PRODUCT DETAIL */}

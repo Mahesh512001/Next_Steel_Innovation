@@ -109,11 +109,10 @@ export default function Navbar({ navigation }: NavbarProps) {
                         <span>{item.label}</span>
 
                         <i
-                          className={`bi bi-chevron-down navbar-chevron ${
-                            activeMenu === item.id
+                          className={`bi bi-chevron-down navbar-chevron ${activeMenu === item.id
                               ? "rotate-180"
                               : ""
-                          }`}
+                            }`}
                         />
                       </button>
                     )}
