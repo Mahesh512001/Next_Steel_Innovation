@@ -4,7 +4,7 @@ export interface NavigationLink {
 }
 
 export interface NavigationColumn {
-  title: string;
+  title?: string;
   links: NavigationLink[];
 }
 

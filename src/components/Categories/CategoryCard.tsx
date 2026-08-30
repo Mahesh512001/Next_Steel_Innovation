@@ -1,31 +1,75 @@
-import type { Category } from "../../types/category.types";
+
+import type { ProductCategory } from "../../types/category.types";
 
 interface CategoryCardProps {
-  category: Category;
+  category: ProductCategory;
 }
 
-export default function CategoryCard({
-  category,
-}: CategoryCardProps) {
+export default function CategoryCard({ category }: CategoryCardProps) {
   return (
     <a
-      href={category.href || "#"}
-      className="group flex flex-col items-center text-center"
+      href={`/category/${category.slug}`}
+      className="category-card d-flex flex-column align-items-center text-decoration-none"
     >
-      <div className="relative flex aspect-square w-full max-w-[185px] items-center justify-center overflow-hidden rounded-full border-2 border-brand-200 bg-brand-50 transition-all duration-300 group-hover:-translate-y-1 group-hover:border-brand-500 group-hover:bg-white group-hover:shadow-[0_10px_30px_rgba(18,97,201,0.15)]">
-
+      <div className="category-image d-flex align-items-center justify-content-center overflow-hidden rounded-circle border border-2 bg-light p-2">
         <img
           src={category.image}
           alt={category.name}
           loading="lazy"
-          className="h-full w-full rounded-full object-contain p-5"
+          className="h-100 w-100 rounded-circle object-fit-cover"
         />
-
       </div>
 
-      <h3 className="mt-5 text-[14px] font-semibold leading-5 text-ink-900 group-hover:text-brand-500">
+      <h3 className="category-title mt-3 mb-0 text-center fw-medium">
         {category.name}
       </h3>
+
+      <style>{`
+        .category-image {
+          width: 112px;
+          height: 112px;
+          border-color: #bfdbfe !important;
+          transition: all 0.3s ease;
+        }
+
+        .category-title {
+          font-size: 12px;
+          color: #0f172a;
+          transition: color 0.3s ease;
+        }
+
+        .category-card:hover .category-image {
+          transform: scale(1.05);
+          border-color: #3b82f6 !important;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-card:hover .category-title {
+          color: #2563eb;
+        }
+
+        @media (min-width: 576px) {
+          .category-image {
+            width: 128px;
+            height: 128px;
+          }
+
+          .category-title {
+            font-size: 14px;
+          }
+        }
+
+        @media (min-width: 768px) {
+          .category-image {
+            width: 144px;
+            height: 144px;
+          }
+        }
+
+        .object-fit-cover {
+          object-fit: cover;
+        }
+      `}</style>
     </a>
   );
 }

@@ -1,33 +1,53 @@
-import type { Category } from "../../types/category.types";
-import CategoryCard from "./CategoryCard";
 
-interface CategorySectionProps {
-  categories: Category[];
-}
+import CategoryGrid from "./CategoryGrid";
 
-export default function CategorySection({
-  categories,
-}: CategorySectionProps) {
+export default function CategorySection() {
   return (
-    <section
-      id="categories"
-      className="w-full bg-white py-14 sm:py-16 lg:py-20"
-    >
-      <div className="mx-auto max-w-[1900px] px-5 sm:px-8 lg:px-10">
+    <section className="category-section mx-auto">
+      <h2 className="category-heading text-center fw-medium">
+        Shop By{" "}
+        <span className="category-heading-highlight position-relative d-inline-block fw-bold">
+          Categories
+          <span className="category-underline position-absolute rounded-pill"></span>
+        </span>
+      </h2>
 
-       
+      <CategoryGrid />
 
-        <div className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 sm:gap-x-7 sm:gap-y-12 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 xl:gap-x-5 xl:gap-y-12">
+      <style>{`
+        .category-section {
+          max-width: 1900px;
+          padding: 4rem 1.25rem;
+        }
 
-          {categories.map((category) => (
-            <CategoryCard
-              key={category.id}
-              category={category}
-            />
-          ))}
+        .category-heading {
+          margin-bottom: 3rem;
+          font-size: 1.875rem;
+          line-height: 1.25;
+          color: #1e293b;
+        }
 
-        </div>
-      </div>
+        .category-underline {
+          bottom: -4px;
+          right: 0;
+          width: 100%;
+          height: 3px;
+          background-color: #c1121f;
+        }
+
+        @media (min-width: 768px) {
+          .category-heading {
+            font-size: 2.25rem;
+          }
+        }
+
+        @media (min-width: 992px) {
+          .category-section {
+            padding-left: 2rem;
+            padding-right: 2rem;
+          }
+        }
+      `}</style>
     </section>
   );
 }

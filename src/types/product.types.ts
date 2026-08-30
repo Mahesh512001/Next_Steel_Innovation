@@ -1,14 +1,26 @@
+export interface ProductLinks {
+  flipkart: string;
+  amazon: string;
+  myntra: string;
+}
+
 export interface Product {
-  id: string;
   category: string;
-  productType: string;
-  name: string;
+  itemCode: string;
+  productName: string;
+
   color: string;
-  price: number;
+  mrp: number;
+
   material: string;
-  finish: string;
-  description: string;
-  imageFolder: string;
-  image: string;
-  flipkartUrl?: string;
+  finishType: string;
+
+  links: ProductLinks;
+
+  images?: string[];
+
+  description?: string;
+  type?: string;
+
+  available?: boolean;
 }

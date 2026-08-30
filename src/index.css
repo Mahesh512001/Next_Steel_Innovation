@@ -1,59 +1,87 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
-@import "tailwindcss";
+
 
 @theme {
-  --color-brand-50: #f0f7ff;
-  --color-brand-100: #eaf3ff;
-  --color-brand-200: #cfe4ff;
-  --color-brand-300: #a9cfff;
-  --color-brand-400: #5fa4f5;
-  --color-brand-500: #1261c9;
-  --color-brand-600: #0d4fa8;
-  --color-brand-700: #0b428d;
-  --color-brand-800: #0a376f;
-  --color-brand-900: #082c59;
+  /* ========================================
+     BRAND — Primary Red
+     ======================================== */
+  --color-brand-50: #fff5f5;
+  --color-brand-100: #ffe8e8;
+  --color-brand-200: #ffcaca;
+  --color-brand-300: #f99b9f;
+  --color-brand-400: #e85b65;
+  --color-brand-500: #c1121f;
+  --color-brand-600: #a50f1a;
+  --color-brand-700: #8f0d17;
+  --color-brand-800: #780000;
+  --color-brand-900: #5c0000;
 
-  --color-cyanbrand-50: #e8f9fc;
-  --color-cyanbrand-100: #d5f3f8;
-  --color-cyanbrand-200: #ace7ef;
-  --color-cyanbrand-300: #70d5e2;
-  --color-cyanbrand-400: #32bed0;
-  --color-cyanbrand-500: #08a9c4;
-  --color-cyanbrand-600: #078da5;
-  --color-cyanbrand-700: #067487;
 
-  --color-logoRed-50: #fff5f5;
-  --color-logoRed-100: #fff0f0;
-  --color-logoRed-200: #ffd6d6;
-  --color-logoRed-300: #ffadad;
-  --color-logoRed-400: #f76b6b;
-  --color-logoRed-500: #e53935;
-  --color-logoRed-600: #c92d2a;
-  --color-logoRed-700: #a92522;
+  /* ========================================
+     CYANBRAND — Secondary Blue
+     ======================================== */
+  --color-cyanbrand-50: #f1f7fa;
+  --color-cyanbrand-100: #e3eff5;
+  --color-cyanbrand-200: #c5dce8;
+  --color-cyanbrand-300: #a4c7d8;
+  --color-cyanbrand-400: #83b2c9;
+  --color-cyanbrand-500: #669bbc;
+  --color-cyanbrand-600: #5285a5;
+  --color-cyanbrand-700: #416e8a;
 
-  --color-logoOrange-50: #fff9ed;
-  --color-logoOrange-100: #fff7e8;
-  --color-logoOrange-200: #ffe8b8;
-  --color-logoOrange-300: #ffd477;
-  --color-logoOrange-400: #f9b83f;
-  --color-logoOrange-500: #f5a623;
-  --color-logoOrange-600: #d98a12;
 
-  --color-ink-900: #172033;
-  --color-ink-800: #263246;
-  --color-ink-700: #3d4a5d;
-  --color-ink-600: #5f6b7a;
-  --color-ink-500: #7b8794;
+  /* ========================================
+     LOGO RED — Deep Burgundy / Dark Red
+     ======================================== */
+  --color-logoRed-50: #fff6f6;
+  --color-logoRed-100: #ffebeb;
+  --color-logoRed-200: #f8cccc;
+  --color-logoRed-300: #e99b9b;
+  --color-logoRed-400: #c85f63;
+  --color-logoRed-500: #780000;
+  --color-logoRed-600: #650000;
+  --color-logoRed-700: #520000;
 
-  --color-surface-50: #f7fafc;
-  --color-surface-100: #f1f5f9;
-  --color-surface-200: #e8eef5;
-  --color-surface-300: #dce5ef;
 
+  /* ========================================
+     LOGO ORANGE — Warm Cream
+     ======================================== */
+  --color-logoOrange-50: #fffdf8;
+  --color-logoOrange-100: #fef9ed;
+  --color-logoOrange-200: #fdf0d5;
+  --color-logoOrange-300: #f8e3bd;
+  --color-logoOrange-400: #efd39f;
+  --color-logoOrange-500: #e5c589;
+  --color-logoOrange-600: #cbaa70;
+
+
+  /* ========================================
+     INK — Deep Navy
+     ======================================== */
+  --color-ink-900: #003049;
+  --color-ink-800: #123f55;
+  --color-ink-700: #31576a;
+  --color-ink-600: #527384;
+  --color-ink-500: #72909e;
+
+
+  /* ========================================
+     SURFACE — Warm Neutral / Cream
+     ======================================== */
+  --color-surface-50: #fffdf9;
+  --color-surface-100: #fdf8ed;
+  --color-surface-200: #f7eedf;
+  --color-surface-300: #eadfcf;
+
+
+  /* ========================================
+     SUCCESS
+     ======================================== */
   --color-success-500: #16a34a;
   --color-success-600: #15803d;
 }
+  
 
 html {
   scroll-behavior: smooth;

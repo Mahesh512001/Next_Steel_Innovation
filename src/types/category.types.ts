@@ -1,7 +1,6 @@
-export interface Category {
-  id: string;
+export interface ProductCategory {
   name: string;
-  image: string;
-  description?: string;
+  slug: string;
+  image?: string;
   href?: string;
 }

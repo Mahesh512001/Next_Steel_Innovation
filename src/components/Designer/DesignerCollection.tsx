@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+
+import { useCallback,useEffect, useState } from "react";
 import type { DesignerSlide } from "../../types/designer.types";
 
 interface DesignerCollectionProps {
@@ -10,11 +11,11 @@ export default function DesignerCollection({
 }: DesignerCollectionProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const nextSlide = () => {
+const nextSlide = useCallback( () => {
     setCurrentSlide((current) =>
       current === slides.length - 1 ? 0 : current + 1
     );
-  };
+  }, [slides.length]);
 
   const previousSlide = () => {
     setCurrentSlide((current) =>
@@ -23,36 +24,34 @@ export default function DesignerCollection({
   };
 
   useEffect(() => {
-    const timer = setInterval(nextSlide, 6000);
+    const timer = setInterval(nextSlide, 5000);
 
     return () => clearInterval(timer);
-  }, [slides.length]);
+  }, [nextSlide]);
 
   return (
-    <section className="w-full px-4 py-6 sm:px-6 lg:px-7">
-      <div className="mx-auto max-w-[1900px]">
+    <section className="w-100 designer-section">
+      <div className="mx-auto designer-container">
 
-        <div className="flex flex-col gap-4 lg:flex-row lg:gap-5">
+        <div className="d-flex flex-column flex-lg-row gap-3 gap-lg-4">
 
           {/* LEFT */}
-          <div className="relative flex min-h-[300px] w-full flex-col justify-center overflow-hidden rounded-xl bg-black px-6 py-10 sm:px-8 lg:min-h-[425px] lg:w-[27%] lg:px-7 xl:px-8">
+          <div className="position-relative d-flex flex-column justify-content-center overflow-hidden rounded-3 bg-black designer-left">
 
-            <div className="absolute -right-8 -top-12 h-32 w-32 rotate-45 rounded-[25px] bg-[#075d67] opacity-90 sm:h-40 sm:w-40" />
+            <div className="position-absolute designer-shape-one" />
 
-            <div className="absolute -right-2 -top-7 h-28 w-28 rotate-45 rounded-[22px] bg-[#0a6973] opacity-90 sm:h-36 sm:w-36" />
+            <div className="position-absolute designer-shape-two" />
 
           </div>
 
           {/* RIGHT SLIDER */}
-          <div className="relative h-[300px] w-full overflow-hidden rounded-xl bg-slate-800 sm:h-[370px] lg:h-[425px] lg:w-[73%]">
+          <div className="position-relative overflow-hidden rounded-3 bg-dark designer-slider">
 
             {slides.map((slide, index) => (
               <div
                 key={slide.id}
-                className={`absolute inset-0 ${
-                  index === currentSlide
-                    ? "block"
-                    : "hidden"
+                className={`position-absolute top-0 start-0 w-100 h-100 ${
+                  index === currentSlide ? "d-block" : "d-none"
                 }`}
               >
 
@@ -60,10 +59,10 @@ export default function DesignerCollection({
                   src={slide.image}
                   alt={slide.alt}
                   loading="lazy"
-                  className="h-full w-full object-cover object-center"
+                  className="w-100 h-100 designer-image"
                 />
 
-                <div className="absolute bottom-7 right-7 rounded-md bg-white/95 px-6 py-3 text-sm font-semibold text-gray-900 shadow-lg">
+                <div className="position-absolute bottom-0 end-0 mb-4 me-4 rounded bg-white designer-label">
                   {slide.label}
                 </div>
 
@@ -74,7 +73,7 @@ export default function DesignerCollection({
             <button
               aria-label="Previous designer collection"
               onClick={previousSlide}
-              className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-xl text-brand-500 shadow-md hover:scale-105 hover:bg-brand-50 md:left-6 md:h-12 md:w-12"
+              className="position-absolute top-50 start-0 translate-middle-y d-flex align-items-center justify-content-center rounded-circle bg-white border-0 designer-button designer-button-prev"
             >
               <i className="bi bi-chevron-left" />
             </button>
@@ -83,7 +82,7 @@ export default function DesignerCollection({
             <button
               aria-label="Next designer collection"
               onClick={nextSlide}
-              className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-xl text-brand-500 shadow-md hover:scale-105 hover:bg-brand-50 md:right-6 md:h-12 md:w-12"
+              className="position-absolute top-50 end-0 translate-middle-y d-flex align-items-center justify-content-center rounded-circle bg-white border-0 designer-button designer-button-next"
             >
               <i className="bi bi-chevron-right" />
             </button>
@@ -91,6 +90,163 @@ export default function DesignerCollection({
           </div>
         </div>
       </div>
+
+      <style>{`
+        .designer-section {
+          padding: 1.5rem 1rem;
+        }
+
+        .designer-container {
+          max-width: 1900px;
+        }
+
+        .designer-left {
+          min-height: 300px;
+          width: 100%;
+          padding: 2.5rem 1.5rem;
+        }
+
+        .designer-slider {
+          height: 300px;
+          width: 100%;
+        }
+
+        .designer-image {
+          object-fit: cover;
+          object-position: center;
+        }
+
+        .designer-label {
+          margin-bottom: 1.75rem;
+          margin-right: 1.75rem;
+          padding: 0.75rem 1.5rem;
+          font-size: 14px;
+          font-weight: 600;
+          color: #111827;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .designer-shape-one {
+          width: 128px;
+          height: 128px;
+          right: -32px;
+          top: -48px;
+          transform: rotate(45deg);
+          border-radius: 25px;
+          background-color: #075d67;
+          opacity: 0.9;
+        }
+
+        .designer-shape-two {
+          width: 112px;
+          height: 112px;
+          right: -8px;
+          top: -28px;
+          transform: rotate(45deg);
+          border-radius: 22px;
+          background-color: #0a6973;
+          opacity: 0.9;
+        }
+
+        .designer-button {
+          width: 40px;
+          height: 40px;
+          margin-top: 0;
+          color: #c1121f;
+          font-size: 20px;
+          box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+          transition: all 0.3s ease;
+          z-index: 10;
+        }
+
+        .designer-button:hover {
+          transform: translateY(-50%) scale(1.05);
+          background-color: #fff5f5 !important;
+        }
+
+        .designer-button-prev {
+          left: 1rem !important;
+        }
+
+        .designer-button-next {
+          right: 1rem !important;
+        }
+
+        @media (min-width: 576px) {
+          .designer-section {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+          }
+
+          .designer-left {
+            padding-left: 2rem;
+            padding-right: 2rem;
+          }
+
+          .designer-slider {
+            height: 370px;
+          }
+
+          .designer-shape-one {
+            width: 160px;
+            height: 160px;
+          }
+
+          .designer-shape-two {
+            width: 144px;
+            height: 144px;
+          }
+        }
+
+        @media (min-width: 992px) {
+          .designer-section {
+            padding-left: 1.75rem;
+            padding-right: 1.75rem;
+          }
+
+          .designer-left {
+            width: 27%;
+            min-height: 425px;
+            padding-left: 1.75rem;
+            padding-right: 1.75rem;
+          }
+
+          .designer-slider {
+            width: 73%;
+            height: 425px;
+          }
+
+          .designer-button-prev {
+            left: 1.5rem !important;
+          }
+
+          .designer-button-next {
+            right: 1.5rem !important;
+          }
+        }
+
+        @media (min-width: 1200px) {
+          .designer-left {
+            padding-left: 2rem;
+            padding-right: 2rem;
+          }
+        }
+
+        @media (max-width: 767.98px) {
+          .designer-button {
+            width: 40px;
+            height: 40px;
+          }
+        }
+
+        @media (min-width: 768px) {
+          .designer-button {
+            width: 48px;
+            height: 48px;
+          }
+        }
+      `}</style>
     </section>
   );
 }
+

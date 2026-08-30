@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+
 import type { HeroSlide } from "../../types/hero.types";
 
 interface HeroSliderProps {
@@ -10,83 +10,175 @@ export default function HeroSlider({
   slides,
   interval = 5000,
 }: HeroSliderProps) {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const nextSlide = () => {
-    setCurrentSlide((current) =>
-      current === slides.length - 1 ? 0 : current + 1
-    );
-  };
-
-  const previousSlide = () => {
-    setCurrentSlide((current) =>
-      current === 0 ? slides.length - 1 : current - 1
-    );
-  };
-
-  useEffect(() => {
-    const timer = setInterval(nextSlide, interval);
-
-    return () => clearInterval(timer);
-  }, [interval, slides.length]);
-
   if (!slides.length) {
     return null;
   }
 
   return (
-    <section className="relative w-full overflow-hidden bg-surface-100">
-
-      {/* Slides */}
-      <div>
-        {slides.map((slide, index) => (
-          <img
-            key={slide.id}
-            src={slide.image}
-            alt={slide.alt}
-            className={`h-[260px] w-full object-cover object-center transition-opacity duration-500 sm:h-[350px] md:h-[450px] lg:h-[520px] xl:h-[580px] ${
-              index === currentSlide
-                ? "block opacity-100"
-                : "hidden opacity-0"
-            }`}
-          />
-        ))}
-      </div>
-
-      {/* Previous */}
-      <button
-        aria-label="Previous product"
-        onClick={previousSlide}
-        className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-xl text-brand-500 shadow-md hover:scale-105 hover:bg-brand-50 md:left-6 md:h-12 md:w-12 md:text-2xl"
+    <section
+      aria-label="Featured products"
+      className="w-100 overflow-hidden hero-slider"
+    >
+      <div
+        id="heroCarousel"
+        className="carousel slide"
+        data-bs-ride="carousel"
+        data-bs-interval={interval}
       >
-        <i className="bi bi-chevron-left" />
-      </button>
+        {/* DOTS / INDICATORS */}
+        {slides.length > 1 && (
+          <div className="carousel-indicators">
+            {slides.map((slide, index) => (
+              <button
+                key={slide.id}
+                type="button"
+                data-bs-target="#heroCarousel"
+                data-bs-slide-to={index}
+                className={index === 0 ? "active" : ""}
+                aria-current={index === 0 ? "true" : undefined}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+        )}
 
-      {/* Next */}
-      <button
-        aria-label="Next product"
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-xl text-brand-500 shadow-md hover:scale-105 hover:bg-brand-50 md:right-6 md:h-12 md:w-12 md:text-2xl"
-      >
-        <i className="bi bi-chevron-right" />
-      </button>
+        {/* SLIDES */}
+        <div className="carousel-inner">
+          {slides.map((slide, index) => (
+            <div
+              key={slide.id}
+              className={`carousel-item ${
+                index === 0 ? "active" : ""
+              }`}
+            >
+              <img
+                src={slide.image}
+                alt={slide.alt}
+                loading={index === 0 ? "eager" : "lazy"}
+                className="d-block w-100 hero-slide"
+              />
+            </div>
+          ))}
+        </div>
 
-      {/* Dots */}
-      <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-2">
-        {slides.map((slide, index) => (
+        {/* PREVIOUS */}
+        {slides.length > 1 && (
           <button
-            key={slide.id}
-            aria-label={`Slide ${index + 1}`}
-            onClick={() => setCurrentSlide(index)}
-            className={`h-3 w-3 rounded-full transition ${
-              index === currentSlide
-                ? "bg-brand-500"
-                : "border border-brand-200 bg-white/90"
-            }`}
-          />
-        ))}
+            className="carousel-control-prev"
+            type="button"
+            data-bs-target="#heroCarousel"
+            data-bs-slide="prev"
+            aria-label="Previous slide"
+          >
+            <span
+              className="carousel-control-prev-icon hero-control-icon"
+              aria-hidden="true"
+            />
+            <span className="visually-hidden">
+              Previous
+            </span>
+          </button>
+        )}
+
+        {/* NEXT */}
+        {slides.length > 1 && (
+          <button
+            className="carousel-control-next"
+            type="button"
+            data-bs-target="#heroCarousel"
+            data-bs-slide="next"
+            aria-label="Next slide"
+          >
+            <span
+              className="carousel-control-next-icon hero-control-icon"
+              aria-hidden="true"
+            />
+            <span className="visually-hidden">
+              Next
+            </span>
+          </button>
+        )}
       </div>
 
+      <style>{`
+        .hero-slider {
+          background-color: #f8fafc;
+        }
+
+        .hero-slide {
+          height: 300px;
+          object-fit: cover;
+          object-position: center;
+        }
+
+        .hero-control-icon {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background-color: rgba(255, 255, 255, 0.95);
+          background-size: 18px 18px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .carousel-control-prev-icon {
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23c1121f' d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3E%3C/svg%3E");
+        }
+
+        .carousel-control-next-icon {
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23c1121f' d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+        }
+
+        .carousel-indicators [data-bs-target] {
+          width: 10px;
+          height: 10px;
+          margin-left: 4px;
+          margin-right: 4px;
+          border: 1px solid #ffcaca;
+          border-radius: 50%;
+          background-color: rgba(255, 255, 255, 0.9);
+          opacity: 1;
+        }
+
+        .carousel-indicators .active {
+          background-color: #c1121f;
+          border-color: #c1121f;
+        }
+
+        @media (min-width: 576px) {
+          .hero-slide {
+            height: 380px;
+          }
+
+          .hero-control-icon {
+            width: 36px;
+            height: 36px;
+          }
+        }
+
+        @media (min-width: 768px) {
+          .hero-slide {
+            height: 450px;
+          }
+
+          .hero-control-icon {
+            width: 42px;
+            height: 42px;
+          }
+        }
+
+        @media (min-width: 992px) {
+          .hero-slide {
+            height: 500px;
+          }
+        }
+
+        @media (min-width: 1200px) {
+          .hero-slide {
+            height: 550px;
+          }
+        }
+      `}</style>
     </section>
   );
 }
+

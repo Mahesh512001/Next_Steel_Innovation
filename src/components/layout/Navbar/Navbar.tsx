@@ -1,6 +1,10 @@
+
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 import type { NavigationItem } from "../../../types/navigation.types";
 import { siteConfig } from "../../../data/site.data";
+
 import MobileMenu from "./MobileMenu";
 
 interface NavbarProps {
@@ -8,189 +12,474 @@ interface NavbarProps {
 }
 
 export default function Navbar({ navigation }: NavbarProps) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+
+  const handleMenuToggle = (id: string) => {
+    setActiveMenu((current) =>
+      current === id ? null : id
+    );
+  };
+
+  const handleCloseMenu = () => {
+    setActiveMenu(null);
+  };
 
   return (
     <>
-      <header className="sticky top-0 z-30 border-b border-surface-300 bg-white">
-        <div className="flex h-[80px] items-center justify-between px-5 lg:px-8">
+      {/* =====================================================
+          MAIN NAVBAR
+      ====================================================== */}
 
-          {/* LEFT */}
-          <div className="flex items-center gap-5">
+      <header className="sticky-top z-50 border-bottom bg-white navbar-header">
+        <div className="mx-auto navbar-container">
 
-            {/* Mobile Menu */}
-            <button
-              aria-label="Open product menu"
-              onClick={() => setMobileMenuOpen(true)}
-              className="text-2xl text-ink-800 hover:text-brand-500 md:hidden"
-            >
-              <i className="bi bi-list" />
-            </button>
+          <div className="d-flex align-items-center justify-content-between navbar-inner">
 
-            {/* Logo */}
-            <a
-              href="#"
+            {/* =================================================
+                LOGO
+            ================================================== */}
+
+            <Link
+              to="/"
               aria-label={`${siteConfig.name} Home`}
-              className="flex items-center"
+              className="d-flex align-items-center flex-shrink-0"
+              onClick={handleCloseMenu}
             >
               <img
                 src={siteConfig.logo}
                 alt={siteConfig.name}
-                className="h-auto max-h-[62px] object-contain"
-                width="120"
+                className="navbar-logo"
               />
-            </a>
-          </div>
+            </Link>
 
-          {/* DESKTOP NAVIGATION */}
-          <nav
-            aria-label="Main navigation"
-            className="mx-5 hidden h-[80px] items-center text-[15px] font-medium md:flex"
-          >
-            <ul className="flex h-[80px] items-center gap-5 lg:gap-6">
 
-              {navigation.map((item) => (
-                <li
-                  key={item.id}
-                  className="group relative flex h-[80px] items-center"
-                >
+            {/* =================================================
+                DESKTOP NAVIGATION
+            ================================================== */}
 
-                  <button
-                    type="button"
-                    className="flex items-center gap-2 text-ink-800 hover:text-brand-500"
+            <nav
+              aria-label="Main navigation"
+              className="d-none d-lg-block"
+            >
+              <ul className="d-flex align-items-center list-unstyled mb-0 navbar-nav-list">
+
+                {navigation.map((item) => (
+                  <li
+                    key={item.id}
+                    className="position-relative d-flex align-items-center navbar-nav-item"
+                    onMouseEnter={() => {
+                      if (item.hasDropdown) {
+                        setActiveMenu(item.id);
+                      }
+                    }}
+                    onMouseLeave={() => {
+                      if (item.hasDropdown) {
+                        setActiveMenu(null);
+                      }
+                    }}
                   >
-                    <span>{item.label}</span>
 
-                    {item.label === "More" && (
-                      <i className="bi bi-chevron-down text-xs transition-transform duration-200 group-hover:rotate-180" />
+                    {/* DIRECT LINK */}
+
+                    {!item.hasDropdown && (
+                      <Link
+                        to={item.href ?? "#"}
+                        onClick={handleCloseMenu}
+                        className="d-flex align-items-center navbar-link"
+                      >
+                        {item.label}
+                      </Link>
                     )}
-                  </button>
 
-                  {/* MEGA MENU */}
-                  {item.hasDropdown && item.columns && (
-                    <div
-                      className={`invisible absolute top-full z-50 border-t border-surface-200 bg-white opacity-0 shadow-[0_15px_35px_rgba(23,32,51,0.12)] transition-all duration-200 group-hover:visible group-hover:opacity-100 ${
-                        item.id === "more"
-                          ? "left-0 w-max rounded-b-lg"
-                          : "fixed left-0 w-screen"
-                      }`}
-                    >
-                      <div className="mx-auto max-w-[1900px] px-8 py-10 lg:px-12">
 
-                        <div
-                          className={`grid gap-10 lg:gap-14 ${
-                            item.id === "more"
-                              ? "grid-cols-1"
-                              : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-5"
+                    {/* DROPDOWN BUTTON */}
+
+                    {item.hasDropdown && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          handleMenuToggle(item.id)
+                        }
+                        className="d-flex align-items-center gap-2 navbar-link navbar-dropdown-button"
+                        aria-expanded={
+                          activeMenu === item.id
+                        }
+                        aria-haspopup="true"
+                      >
+                        <span>{item.label}</span>
+
+                        <i
+                          className={`bi bi-chevron-down navbar-chevron ${
+                            activeMenu === item.id
+                              ? "rotate-180"
+                              : ""
                           }`}
-                        >
-                          {item.columns.map((column) => (
-                            <div key={column.title}>
+                        />
+                      </button>
+                    )}
 
-                              {column.title && (
-                                <h3 className="mb-7 text-[18px] font-bold text-ink-900">
-                                  {column.title}
-                                </h3>
+
+                    {/* =================================================
+                        DROPDOWN
+                    ================================================== */}
+
+                    {item.hasDropdown &&
+                      item.columns &&
+                      activeMenu === item.id && (
+                        <div
+                          className="position-absolute start-50 translate-middle-x navbar-dropdown"
+                          onMouseEnter={() =>
+                            setActiveMenu(item.id)
+                          }
+                          onMouseLeave={() =>
+                            setActiveMenu(null)
+                          }
+                        >
+                          <div className="overflow-hidden bg-white navbar-dropdown-box">
+
+                            <div className="navbar-dropdown-content">
+
+                              {item.columns.map(
+                                (column, columnIndex) => (
+                                  <div
+                                    key={`${item.id}-column-${columnIndex}`}
+                                  >
+
+                                    {column.title && (
+                                      <h3 className="mb-3 navbar-column-title">
+                                        {column.title}
+                                      </h3>
+                                    )}
+
+                                    <ul className="list-unstyled mb-0 navbar-column-links">
+
+                                      {column.links.map(
+                                        (link) => (
+                                          <li
+                                            key={`${item.id}-${link.label}`}
+                                          >
+                                            <Link
+                                              to={link.href}
+                                              onClick={
+                                                handleCloseMenu
+                                              }
+                                              className="d-flex align-items-center justify-content-between navbar-dropdown-link"
+                                            >
+                                              <span>
+                                                {link.label}
+                                              </span>
+
+                                              <i className="bi bi-arrow-right navbar-arrow" />
+                                            </Link>
+                                          </li>
+                                        )
+                                      )}
+
+                                    </ul>
+                                  </div>
+                                )
                               )}
 
-                              <ul className="space-y-4">
-                                {column.links.map((link) => (
-                                  <li key={link.label}>
-                                    <a
-                                      href={link.href}
-                                      className="block text-[15px] text-ink-700 transition hover:translate-x-1 hover:text-brand-500"
-                                    >
-                                      {link.label}
-                                    </a>
-                                  </li>
-                                ))}
-                              </ul>
-
                             </div>
-                          ))}
+                          </div>
                         </div>
+                      )}
 
-                      </div>
-                    </div>
-                  )}
-                </li>
-              ))}
+                  </li>
+                ))}
 
-            </ul>
-          </nav>
+              </ul>
+            </nav>
 
-          {/* RIGHT */}
-          <div className="flex items-center gap-4 lg:gap-5">
 
-            {/* Desktop Search */}
-            <div className="relative hidden lg:block">
+            {/* =================================================
+                RIGHT SIDE ACTIONS
+            ================================================== */}
+
+            <div className="d-flex align-items-center navbar-actions">
+
+              {/* SEARCH INPUT */}
+
               <input
-                aria-label="Search products"
-                className="h-[41px] w-[190px] rounded-lg border border-surface-200 bg-surface-100 px-4 pr-10 text-sm text-ink-900 outline-none placeholder:text-ink-500 focus:border-brand-400 focus:bg-white focus:ring-2 focus:ring-brand-100 xl:w-[250px]"
-                placeholder="Search products..."
                 type="text"
+                placeholder="Search..."
+                aria-label="Search products"
+                className="navbar-search-input"
               />
 
-              <i className="bi bi-search absolute right-3 top-1/2 -translate-y-1/2 text-base text-brand-500" />
+              {/* SEARCH BUTTON */}
+
+              <Link
+                to="/search"
+                aria-label="Search"
+                className="d-flex align-items-center justify-content-center rounded-circle navbar-action-button"
+              >
+                <i className="bi bi-search fs-5" />
+              </Link>
+
+
+              {/* MOBILE MENU */}
+
+              <button
+                type="button"
+                aria-label="Open menu"
+                className="d-flex d-lg-none align-items-center justify-content-center rounded-circle border-0 bg-transparent navbar-action-button"
+                onClick={() =>
+                  setActiveMenu("mobile")
+                }
+              >
+                <i className="bi bi-list fs-2" />
+              </button>
+
             </div>
-
-            {/* Mobile Search */}
-            <button
-              aria-label="Search products"
-              className="text-lg text-ink-800 hover:text-brand-500 lg:hidden"
-            >
-              <i className="bi bi-search" />
-            </button>
-
-            {/* Support */}
-            <button
-              aria-label="Customer support"
-              className="hidden h-10 w-10 items-center justify-center rounded-full bg-brand-500 text-white hover:bg-brand-600 hover:shadow-md sm:flex"
-            >
-              <i className="bi bi-headphones text-lg" />
-            </button>
-
-            {/* Account */}
-            {/* <button
-              aria-label="My account"
-              className="relative text-xl text-ink-800 hover:text-brand-500"
-            >
-              <i className="bi bi-person-circle" />
-            </button> */}
-
-            {/* Wishlist */}
-            {/* <button
-              aria-label="Wishlist"
-              className="relative hidden text-lg text-ink-800 hover:text-brand-500 sm:block"
-            >
-              <i className="bi bi-heart" />
-
-              <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-cyanbrand-500 text-[9px] font-semibold text-white">
-                0
-              </span>
-            </button> */}
-
-            {/* Cart */}
-            {/* <button
-              aria-label="Shopping cart"
-              className="relative text-lg text-ink-800 hover:text-brand-500"
-            >
-              <i className="bi bi-bag-dash" />
-
-              <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-cyanbrand-500 text-[9px] font-semibold text-white">
-                0
-              </span>
-            </button> */}
 
           </div>
         </div>
       </header>
 
+
+      {/* =====================================================
+          MOBILE MENU
+      ====================================================== */}
+
       <MobileMenu
-        isOpen={mobileMenuOpen}
-        onClose={() => setMobileMenuOpen(false)}
         navigation={navigation}
+        isOpen={activeMenu === "mobile"}
+        onClose={handleCloseMenu}
       />
+
+
+      {/* =====================================================
+          CUSTOM CSS
+      ====================================================== */}
+
+      <style>{`
+        /* ================================
+           NAVBAR
+        ================================= */
+
+        .navbar-header {
+          z-index: 1030;
+          border-color: #e2e8f0 !important;
+        }
+
+        .navbar-container {
+          width: 100%;
+          max-width: 1900px;
+          padding-left: 1.25rem;
+          padding-right: 1.25rem;
+        }
+
+        .navbar-inner {
+          height: 80px;
+        }
+
+
+        /* ================================
+           LOGO
+        ================================= */
+
+        .navbar-logo {
+          height: 48px;
+          width: auto;
+          object-fit: contain;
+        }
+
+
+        /* ================================
+           DESKTOP NAV
+        ================================= */
+
+        .navbar-nav-list {
+          height: 80px;
+          gap: 1.25rem;
+        }
+
+        .navbar-nav-item {
+          height: 80px;
+        }
+
+        .navbar-link {
+          border: 0;
+          background: transparent;
+          padding: 0;
+
+          color: #1e293b;
+          text-decoration: none;
+
+          font-size: 15px;
+          font-weight: 500;
+
+          transition: color 0.2s ease;
+        }
+
+        .navbar-link:hover {
+          color: #c1121f;
+        }
+
+        .navbar-dropdown-button {
+          cursor: pointer;
+        }
+
+        .navbar-chevron {
+          font-size: 12px;
+          transition: transform 0.2s ease;
+        }
+
+        .rotate-180 {
+          transform: rotate(180deg);
+        }
+
+
+        /* ================================
+           DROPDOWN
+        ================================= */
+
+        .navbar-dropdown {
+          top: 100%;
+          width: max-content;
+          max-width: calc(100vw - 40px);
+        }
+
+        .navbar-dropdown-box {
+          margin-top: 8px;
+
+          border: 1px solid #e2e8f0;
+          border-radius: 12px;
+
+          box-shadow:
+            0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .navbar-dropdown-content {
+          display: grid;
+          gap: 2rem;
+          padding: 1.75rem;
+        }
+
+        .navbar-column-title {
+          color: #0f172a;
+
+          font-size: 14px;
+          font-weight: 700;
+
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+        }
+
+        .navbar-column-links {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+
+        .navbar-dropdown-link {
+          gap: 1.5rem;
+
+          color: #334155;
+          text-decoration: none;
+
+          white-space: nowrap;
+
+          font-size: 15px;
+
+          transition: color 0.2s ease;
+        }
+
+        .navbar-dropdown-link:hover {
+          color: #c1121f;
+        }
+
+        .navbar-arrow {
+          opacity: 0;
+          transform: translateX(-4px);
+
+          font-size: 14px;
+
+          transition:
+            opacity 0.2s ease,
+            transform 0.2s ease;
+        }
+
+        .navbar-dropdown-link:hover .navbar-arrow {
+          opacity: 1;
+          transform: translateX(0);
+        }
+
+
+        /* ================================
+           RIGHT ACTIONS
+        ================================= */
+
+        .navbar-actions {
+          gap: 0.75rem;
+        }
+
+        .navbar-search-input {
+          width: 120px;
+          height: 40px;
+
+          border: 0;
+          outline: none;
+
+          color: #334155;
+          font-size: 15px;
+          background: transparent;
+        }
+
+        .navbar-search-input::placeholder {
+          color: #64748b;
+        }
+
+        .navbar-action-button {
+          width: 40px;
+          height: 40px;
+
+          color: #1e293b;
+          text-decoration: none;
+
+          transition:
+            background-color 0.2s ease,
+            color 0.2s ease;
+        }
+
+        .navbar-action-button:hover {
+          color: #c1121f;
+          background-color: #f8fafc;
+        }
+
+
+        /* ================================
+           RESPONSIVE
+        ================================= */
+
+        @media (min-width: 576px) {
+          .navbar-container {
+            padding-left: 2rem;
+            padding-right: 2rem;
+          }
+        }
+
+        @media (min-width: 1200px) {
+          .navbar-nav-list {
+            gap: 1.75rem;
+          }
+        }
+
+        @media (min-width: 992px) {
+          .navbar-container {
+            padding-left: 2rem;
+            padding-right: 2rem;
+          }
+        }
+
+        @media (max-width: 991.98px) {
+          .navbar-search-input {
+            display: none;
+          }
+        }
+      `}</style>
     </>
   );
 }
+

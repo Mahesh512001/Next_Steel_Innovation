@@ -1,27 +1,19 @@
 import type { HeroSlide } from "../types/hero.types";
 
-export const heroData: HeroSlide[] = [
+export const heroSlides: HeroSlide[] = [
   {
-    id: "hero-1",
-    image: "/images/M.S Door Hanger 5 Hook.jpg",
-    alt: "Mild Steel Door Hanger 5 Hook",
-  },
-
-  {
-    id: "hero-2",
+    id: 1,
     image: "/images/4-Tire M.S Pipe Shoes Rack ( Black ).jpg",
-    alt: "4-Tier Mild Steel Pipe Shoe Rack",
+    alt: "Next Steel Innovation kitchen storage solutions",
   },
-
   {
-    id: "hero-3",
+    id: 2,
     image: "/images/M.S Door Hanger 9 Hook.jpg",
-    alt: "Mild Steel 9-Hook Door Hanger",
+    alt: "Next Steel Innovation kitchen organizers",
   },
-
   {
-    id: "hero-4",
-    image: "/images/2-Tire M.S Pipe Shoes Rack ( Black ).jpg",
-    alt: "2-Tier Mild Steel Pipe Shoe Rack",
+    id: 3,
+    image: "/images/M.S Door Hanger 5 Hook.jpg",
+    alt: "Next Steel Innovation steel storage products",
   },
 ];

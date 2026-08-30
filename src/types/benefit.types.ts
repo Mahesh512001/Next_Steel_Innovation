@@ -1,7 +1,4 @@
-export interface ServiceBenefit {
-  id: string;
-  icon: string;
+export interface Benefit {
   title: string;
   description: string;
-  iconColor: string;
 }

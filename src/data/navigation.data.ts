@@ -1,191 +1,50 @@
 import type { NavigationItem } from "../types/navigation.types";
+import { categories } from "./categories.data";
 
-const commonColumns = [
+const MAX_VISIBLE_CATEGORIES = 5;
+
+export const navigation: NavigationItem[] = [
   {
-    title: "Kitchen Storage",
-    links: [
-      {
-        label: "Spice Racks",
-        href: "#",
-      },
-      {
-        label: "Kitchen Trolleys",
-        href: "#",
-      },
-      {
-        label: "Kitchen Organizers",
-        href: "#",
-      },
-      {
-        label: "Pan Stands",
-        href: "#",
-      },
-      {
-        label: "Plate Stands",
-        href: "#",
-      },
-    ],
+    id: "home",
+    label: "Home",
+    href: "/",
+    hasDropdown: false,
+  },
+  {
+    id:"about",
+    label:"About",
+    href:"/about",
+    hasDropdown:false,
   },
 
-  {
-    title: "Storage",
-    links: [
-      {
-        label: "Shoe Racks",
-        href: "#",
-      },
-      {
-        label: "Fruit Baskets",
-        href: "#",
-      },
-      {
-        label: "Corner Shelves",
-        href: "#",
-      },
-      {
-        label: "Door Hangers",
-        href: "#",
-      },
-      {
-        label: "Brush Holders",
-        href: "#",
-      },
-    ],
-  },
+  // First 6 categories are shown directly
+  ...categories
+    .slice(0, MAX_VISIBLE_CATEGORIES)
+    .map((category) => ({
+      id: category.id,
+      label: category.name,
+      href: `/category/${category.slug}`,
+      hasDropdown: false,
+    })),
 
-  {
-    title: "Utility Products",
-    links: [
-      {
-        label: "Photo Display Stands",
-        href: "#",
-      },
-      {
-        label: "Shop Utility",
-        href: "#",
-      },
-      {
-        label: "Fruit Baskets",
-        href: "#",
-      },
-      {
-        label: "Corner Shelves",
-        href: "#",
-      },
-    ],
-  },
-
-  {
-    title: "Collections",
-    links: [
-      {
-        label: "New Arrivals",
-        href: "#",
-      },
-      {
-        label: "Best Sellers",
-        href: "#",
-      },
-      {
-        label: "Steel Storage",
-        href: "#",
-      },
-      {
-        label: "Kitchen Solutions",
-        href: "#",
-      },
-    ],
-  },
-
-  {
-    title: "Support",
-    links: [
-      {
-        label: "Contact Us",
-        href: "#",
-      },
-      {
-        label: "Warranty Registration",
-        href: "#",
-      },
-      {
-        label: "My Account",
-        href: "#",
-      },
-      {
-        label: "Customer Support",
-        href: "#",
-      },
-    ],
-  },
-];
-
-export const navigationData: NavigationItem[] = [
-  {
-    id: "spice-racks",
-    label: "Spice Racks",
-    hasDropdown: true,
-    columns: commonColumns,
-  },
-
-  {
-    id: "kitchen-trolleys",
-    label: "Kitchen Trolleys",
-    hasDropdown: true,
-    columns: commonColumns,
-  },
-
-  {
-    id: "shoe-racks",
-    label: "Shoe Racks",
-    hasDropdown: true,
-    columns: commonColumns,
-  },
-
-  {
-    id: "fruit-baskets",
-    label: "Fruit Baskets",
-    hasDropdown: true,
-    columns: commonColumns,
-  },
-
-  {
-    id: "kitchen-organizers",
-    label: "Kitchen Organizers",
-    hasDropdown: true,
-    columns: commonColumns,
-  },
-
-  {
-    id: "more",
-    label: "More",
-    hasDropdown: true,
-    columns: [
-      {
-        title: "",
-        links: [
-          {
-            label: "Corner Shelves",
-            href: "#",
-          },
-          {
-            label: "Pan Stands",
-            href: "#",
-          },
-          {
-            label: "Plate Stands",
-            href: "#",
-          },
-          {
-            label: "Door Hangers",
-            href: "#",
-          },
-          {
-            label: "Contact Us",
-            href: "#",
-          },
-        ],
-      },
-    ],
-  },
+  // Remaining categories go inside More
+  ...(categories.length > MAX_VISIBLE_CATEGORIES
+    ? [
+        {
+          id: "more",
+          label: "More",
+          hasDropdown: true,
+          columns: [
+            {
+              links: categories
+                .slice(MAX_VISIBLE_CATEGORIES)
+                .map((category) => ({
+                  label: category.name,
+                  href: `/category/${category.slug}`,
+                })),
+            },
+          ],
+        },
+      ]
+    : []),
 ];
