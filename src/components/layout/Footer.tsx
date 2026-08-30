@@ -1,56 +1,122 @@
+
+import { Link } from "react-router-dom";
 import { siteConfig } from "../../data/site.data";
 
 function Footer() {
+  /* =====================================================
+     CATEGORIES
+  ====================================================== */
+
   const categories = [
-    "Kitchen",
-    "Bathroom",
-    "Hardware",
-    "Taps & Faucets",
-    "House Hold",
-    "DIY Flooring & Walldecor",
+    {
+      name: "Kitchen Spice Rack",
+      slug: "kitchen-spice-rack",
+    },
+    {
+      name: "Kitchen Trolley",
+      slug: "kitchen-trolley",
+    },
+    {
+      name: "Rack And Shelves",
+      slug: "rack-and-shelves",
+    },
+    {
+      name: "Photo Display Stand",
+      slug: "photo-display-stand",
+    },
+    {
+      name: "Brush Holder",
+      slug: "brush-holder",
+    },
+    {
+      name: "Shoe Rack",
+      slug: "shoe-rack",
+    },
+    {
+      name: "Door Hanger",
+      slug: "door-hanger",
+    },
+    {
+      name: "Fruit Basket",
+      slug: "fruit-basket",
+    },
+    {
+      name: "Pan Stand",
+      slug: "pan-stand",
+    },
+    {
+      name: "Dish Rack",
+      slug: "dish-rack",
+    },
   ];
+
+  /* =====================================================
+     QUICK LINKS
+  ====================================================== */
 
   const quickLinks = [
-    "About Us",
-    "Contact Us",
-    "Careers",
-    "User Guide",
+    {
+      name: "About Us",
+      path: "/about",
+    },
+    {
+      name: "Contact Us",
+      path: "/contact",
+    },
+    {
+      name: "Careers",
+      path: "/careers",
+    },
+    {
+      name: "User Guide",
+      path: "/user-guide",
+    },
   ];
 
+  /* =====================================================
+     CUSTOMER SERVICE
+  ====================================================== */
+
   const customerService = [
-    "Track My Order",
-    "Privacy Policy",
-    "Refund and Cancellation Policy",
-    "Shipping Policy",
-    "Grievance Redressal Policy",
-    "Terms and Conditions",
-    "Warranty Registration",
+    {
+      name: "Terms and Conditions",
+      path: "/terms-and-conditions",
+    },
+    {
+      name: "Warranty Registration",
+      path: "/warranty-registration",
+    },
   ];
 
   return (
     <footer className="footer">
       <div className="container-fluid footer-container">
 
-        {/* Main Footer */}
+        {/* =================================================
+            MAIN FOOTER
+        ================================================== */}
+
         <div className="row g-5">
 
-          {/* ================================
+          {/* =================================================
               BRAND & CONTACT
-          ================================= */}
+          ================================================== */}
 
           <div className="col-12 col-sm-6 col-lg-3">
 
             {/* Logo */}
-            <a
-              href="#"
+
+            <Link
+              to="/"
               className="d-inline-block text-decoration-none"
+              aria-label="Next Steel Innovation Home"
             >
               <img
                 src={siteConfig.logo}
                 alt="Next Steel Innovation"
                 className="footer-logo"
               />
-            </a>
+            </Link>
 
             <p className="footer-description">
               Trusted for quality steel products and innovative
@@ -59,10 +125,13 @@ function Footer() {
             </p>
 
             {/* Contact */}
+
             <div className="footer-contact">
 
               {/* Phone */}
+
               <div className="d-flex align-items-center footer-contact-item">
+
                 <div className="footer-contact-icon">
                   <i className="bi bi-telephone" />
                 </div>
@@ -76,10 +145,13 @@ function Footer() {
                     +91 756 756 7500
                   </p>
                 </div>
+
               </div>
 
               {/* Email */}
+
               <div className="d-flex align-items-center footer-contact-item">
+
                 <div className="footer-contact-icon">
                   <i className="bi bi-envelope" />
                 </div>
@@ -93,10 +165,13 @@ function Footer() {
                     cs@nextsteelinnovation.com
                   </p>
                 </div>
+
               </div>
 
               {/* Hours */}
+
               <div className="d-flex align-items-center footer-contact-item">
+
                 <div className="footer-contact-icon">
                   <i className="bi bi-clock" />
                 </div>
@@ -110,11 +185,13 @@ function Footer() {
                     Mon – Sat, 9:30 AM – 6:30 PM
                   </p>
                 </div>
+
               </div>
 
             </div>
 
             {/* Badges */}
+
             <div className="d-flex flex-wrap footer-badges">
 
               <div className="footer-badge">
@@ -128,12 +205,13 @@ function Footer() {
               </div>
 
             </div>
+
           </div>
 
 
-          {/* ================================
+          {/* =================================================
               CATEGORIES
-          ================================= */}
+          ================================================== */}
 
           <div className="col-12 col-sm-6 col-lg-3">
 
@@ -142,25 +220,32 @@ function Footer() {
             </h3>
 
             <ul className="list-unstyled footer-links">
-              {categories.map((item) => (
-                <li key={item}>
-                  <a
-                    href="#"
+
+              {categories.map((category) => (
+
+                <li key={category.slug}>
+
+                  <Link
+                    to={`/category/${category.slug}`}
                     className="footer-link"
                   >
                     <i className="bi bi-chevron-right" />
-                    {item}
-                  </a>
+
+                    {category.name}
+                  </Link>
+
                 </li>
+
               ))}
+
             </ul>
 
           </div>
 
 
-          {/* ================================
+          {/* =================================================
               QUICK LINKS
-          ================================= */}
+          ================================================== */}
 
           <div className="col-12 col-sm-6 col-lg-3">
 
@@ -169,25 +254,32 @@ function Footer() {
             </h3>
 
             <ul className="list-unstyled footer-links">
+
               {quickLinks.map((item) => (
-                <li key={item}>
-                  <a
-                    href="#"
+
+                <li key={item.path}>
+
+                  <Link
+                    to={item.path}
                     className="footer-link"
                   >
                     <i className="bi bi-chevron-right" />
-                    {item}
-                  </a>
+
+                    {item.name}
+                  </Link>
+
                 </li>
+
               ))}
+
             </ul>
 
           </div>
 
 
-          {/* ================================
+          {/* =================================================
               CUSTOMER SERVICE
-          ================================= */}
+          ================================================== */}
 
           <div className="col-12 col-sm-6 col-lg-3">
 
@@ -196,21 +288,31 @@ function Footer() {
             </h3>
 
             <ul className="list-unstyled footer-links">
+
               {customerService.map((item) => (
-                <li key={item}>
-                  <a
-                    href="#"
+
+                <li key={item.path}>
+
+                  <Link
+                    to={item.path}
                     className="footer-link"
                   >
                     <i className="bi bi-chevron-right" />
-                    {item}
-                  </a>
+
+                    {item.name}
+                  </Link>
+
                 </li>
+
               ))}
+
             </ul>
 
 
-            {/* Newsletter */}
+            {/* =================================================
+                NEWSLETTER
+            ================================================== */}
+
             <div className="footer-newsletter">
 
               <h3 className="footer-subheading">
@@ -223,10 +325,14 @@ function Footer() {
               </p>
 
 
-              {/* Social Media */}
+              {/* =================================================
+                  SOCIAL MEDIA
+              ================================================== */}
+
               <div className="d-flex footer-social">
 
                 {/* Facebook */}
+
                 <a
                   href="#"
                   aria-label="Facebook"
@@ -235,7 +341,9 @@ function Footer() {
                   <i className="bi bi-facebook" />
                 </a>
 
+
                 {/* Instagram */}
+
                 <a
                   href="#"
                   aria-label="Instagram"
@@ -244,7 +352,9 @@ function Footer() {
                   <i className="bi bi-instagram" />
                 </a>
 
+
                 {/* YouTube */}
+
                 <a
                   href="#"
                   aria-label="YouTube"
@@ -254,39 +364,44 @@ function Footer() {
                 </a>
 
               </div>
+
             </div>
 
           </div>
+
         </div>
 
 
-        {/* ================================
+        {/* =================================================
             BOTTOM SECTION
-        ================================= */}
+        ================================================== */}
 
         <div className="footer-bottom">
+
           <div className="row align-items-center gy-4">
 
             {/* Copyright */}
+
             <div className="col-12 col-md-8">
+
               <p className="footer-copyright">
                 Copyright © 2026, Next Steel Innovation.
                 All rights reserved.
               </p>
+
             </div>
 
 
             {/* Payment Methods */}
+
             <div className="col-12 col-md-4">
 
               <div className="d-flex justify-content-md-end footer-payments">
 
-                {/* Mastercard */}
                 <div className="footer-payment">
                   <i className="bi bi-credit-card" />
                 </div>
 
-                {/* Visa */}
                 <div className="footer-payment">
                   <span>VISA</span>
                 </div>
@@ -296,14 +411,15 @@ function Footer() {
             </div>
 
           </div>
+
         </div>
 
       </div>
 
 
-      {/* ================================
+      {/* =================================================
           WHATSAPP
-      ================================= */}
+      ================================================== */}
 
       <a
         href="https://wa.me/7839072326"
@@ -316,11 +432,12 @@ function Footer() {
       </a>
 
 
-      {/* ================================
+      {/* =================================================
           CUSTOM CSS
-      ================================= */}
+      ================================================== */}
 
       <style>{`
+
         /* =================================
            FOOTER
         ================================= */
@@ -670,9 +787,11 @@ function Footer() {
 
           font-size: 34px;
 
-          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+          box-shadow:
+            0 8px 20px rgba(0, 0, 0, 0.2);
 
-          transition: transform 0.2s ease;
+          transition:
+            transform 0.2s ease;
         }
 
         .footer-whatsapp:hover {
@@ -686,13 +805,16 @@ function Footer() {
         ================================= */
 
         @media (min-width: 992px) {
+
           .footer-container {
             padding-left: 2.5rem;
             padding-right: 2.5rem;
           }
+
         }
 
         @media (max-width: 575.98px) {
+
           .footer-container {
             padding-top: 3rem;
             padding-bottom: 3rem;
@@ -705,11 +827,15 @@ function Footer() {
           .footer-whatsapp {
             width: 58px;
             height: 58px;
+
             right: 15px;
             bottom: 15px;
+
             font-size: 28px;
           }
+
         }
+
       `}</style>
     </footer>
   );
