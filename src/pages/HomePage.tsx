@@ -1,8 +1,8 @@
 import HeroSlider from "../components/Hero/HeroSlider";
 import ServiceBenefits from "../components/Benefits/ServiceBenefits";
 import CategorySection from "../components/Categories/CategorySection";
+import { designerSlides } from "../data/hero.data";
 
-import { heroSlides } from "../data/hero.data";
 import DesignerCollection from "../components/Designer/DesignerCollection";
 import CategoryCardSection from "../components/Designer/CategoryCardSection";
 import { kitchenCategories } from "../data/dashboard_category.data";
@@ -14,7 +14,7 @@ export default function HomePage() {
       {/* =================================================
           HERO
       ================================================== */}
-      <HeroSlider slides={heroSlides} />
+      <HeroSlider slides={designerSlides} />
 
 
       {/* =================================================

@@ -1,6 +1,6 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { SpeedInsights } from "@vercel/speed-insights/react";
+
 
 import Navbar from "./components/layout/Navbar/Navbar";
 import CategoryPage from "./pages/CategoryPage";
@@ -14,7 +14,7 @@ import ScrollToTop from "./components/common/ScrollToTop";
 export default function App() {
   return (
     <BrowserRouter>
-      <SpeedInsights />
+    
 
       <Navbar navigation={navigation} />
       <ScrollToTop />

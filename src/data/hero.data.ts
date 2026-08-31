@@ -1,19 +1,19 @@
 import type { HeroSlide } from "../types/hero.types";
 
-export const heroSlides: HeroSlide[] = [
+export const designerSlides: HeroSlide[] = [
   {
     id: 1,
-    image: "/hero/hero1.png",
-    alt: "Next Steel Innovation kitchen storage solutions",
+    image: "/images/hero/hero-1.jpg",
+    alt: "Kitchen storage and organizer products",
   },
   {
     id: 2,
-    image: "/hero/hero2.png",
-    alt: "Next Steel Innovation kitchen organizers",
+    image: "/images/hero/hero-2.jpg",
+    alt: "Modern kitchen organizer products",
   },
   {
     id: 3,
-    image: "/hero/hero3.png",
-    alt: "Next Steel Innovation steel storage products",
+    image: "/images/hero/hero-3.jpg",
+    alt: "Steel kitchen storage products",
   },
 ];

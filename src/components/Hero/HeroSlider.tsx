@@ -14,7 +14,6 @@ export default function HeroSlider({
 }: HeroSliderProps) {
   const reactId = useId();
 
-  // Convert React's generated ID into a safe HTML ID
   const carouselId = `heroCarousel-${reactId.replace(/:/g, "")}`;
 
   if (!slides.length) {
@@ -32,7 +31,9 @@ export default function HeroSlider({
         data-bs-ride="carousel"
         data-bs-interval={interval}
       >
-        {/* INDICATORS */}
+        {/* =========================
+            INDICATORS
+        ========================== */}
         {slides.length > 1 && (
           <div className="carousel-indicators">
             {slides.map((slide, index) => (
@@ -49,7 +50,9 @@ export default function HeroSlider({
           </div>
         )}
 
-        {/* SLIDES */}
+        {/* =========================
+            SLIDES
+        ========================== */}
         <div className="carousel-inner h-100">
           {slides.map((slide, index) => (
             <div
@@ -65,7 +68,7 @@ export default function HeroSlider({
                 className="d-block w-100 h-100 hero-slide"
               />
 
-              {/* Optional label */}
+              {/* Optional Label */}
               {slide.label && (
                 <div className="position-absolute bottom-0 end-0 m-4 px-4 py-2 bg-white rounded shadow fw-semibold text-dark">
                   {slide.label}
@@ -75,7 +78,9 @@ export default function HeroSlider({
           ))}
         </div>
 
-        {/* PREVIOUS */}
+        {/* =========================
+            PREVIOUS BUTTON
+        ========================== */}
         {slides.length > 1 && (
           <button
             className="carousel-control-prev"
@@ -95,7 +100,9 @@ export default function HeroSlider({
           </button>
         )}
 
-        {/* NEXT */}
+        {/* =========================
+            NEXT BUTTON
+        ========================== */}
         {slides.length > 1 && (
           <button
             className="carousel-control-next"
@@ -116,6 +123,9 @@ export default function HeroSlider({
         )}
       </div>
 
+      {/* =========================
+          SLIDER STYLES
+      ========================== */}
       <style>{`
         .hero-slider {
           background-color: #f8fafc;
@@ -136,7 +146,7 @@ export default function HeroSlider({
         }
 
         .carousel-control-prev-icon {
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23c1121f' d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3E%3C/svg%3E");
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23c1121f' d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
         }
 
         .carousel-control-next-icon {
