@@ -1,15 +1,22 @@
-
+import { useId } from "react";
 import type { HeroSlide } from "../../types/hero.types";
 
 interface HeroSliderProps {
   slides: HeroSlide[];
   interval?: number;
+  className?: string;
 }
 
 export default function HeroSlider({
   slides,
   interval = 5000,
+  className = "",
 }: HeroSliderProps) {
+  const reactId = useId();
+
+  // Convert React's generated ID into a safe HTML ID
+  const carouselId = `heroCarousel-${reactId.replace(/:/g, "")}`;
+
   if (!slides.length) {
     return null;
   }
@@ -17,22 +24,22 @@ export default function HeroSlider({
   return (
     <section
       aria-label="Featured products"
-      className="w-100 overflow-hidden hero-slider"
+      className={`w-100 overflow-hidden hero-slider ${className}`}
     >
       <div
-        id="heroCarousel"
-        className="carousel slide"
+        id={carouselId}
+        className="carousel slide h-100"
         data-bs-ride="carousel"
         data-bs-interval={interval}
       >
-        {/* DOTS / INDICATORS */}
+        {/* INDICATORS */}
         {slides.length > 1 && (
           <div className="carousel-indicators">
             {slides.map((slide, index) => (
               <button
                 key={slide.id}
                 type="button"
-                data-bs-target="#heroCarousel"
+                data-bs-target={`#${carouselId}`}
                 data-bs-slide-to={index}
                 className={index === 0 ? "active" : ""}
                 aria-current={index === 0 ? "true" : undefined}
@@ -43,11 +50,11 @@ export default function HeroSlider({
         )}
 
         {/* SLIDES */}
-        <div className="carousel-inner">
+        <div className="carousel-inner h-100">
           {slides.map((slide, index) => (
             <div
               key={slide.id}
-              className={`carousel-item ${
+              className={`carousel-item h-100 ${
                 index === 0 ? "active" : ""
               }`}
             >
@@ -55,8 +62,15 @@ export default function HeroSlider({
                 src={slide.image}
                 alt={slide.alt}
                 loading={index === 0 ? "eager" : "lazy"}
-                className="d-block w-100 hero-slide"
+                className="d-block w-100 h-100 hero-slide"
               />
+
+              {/* Optional label */}
+              {slide.label && (
+                <div className="position-absolute bottom-0 end-0 m-4 px-4 py-2 bg-white rounded shadow fw-semibold text-dark">
+                  {slide.label}
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -66,7 +80,7 @@ export default function HeroSlider({
           <button
             className="carousel-control-prev"
             type="button"
-            data-bs-target="#heroCarousel"
+            data-bs-target={`#${carouselId}`}
             data-bs-slide="prev"
             aria-label="Previous slide"
           >
@@ -74,6 +88,7 @@ export default function HeroSlider({
               className="carousel-control-prev-icon hero-control-icon"
               aria-hidden="true"
             />
+
             <span className="visually-hidden">
               Previous
             </span>
@@ -85,7 +100,7 @@ export default function HeroSlider({
           <button
             className="carousel-control-next"
             type="button"
-            data-bs-target="#heroCarousel"
+            data-bs-target={`#${carouselId}`}
             data-bs-slide="next"
             aria-label="Next slide"
           >
@@ -93,6 +108,7 @@ export default function HeroSlider({
               className="carousel-control-next-icon hero-control-icon"
               aria-hidden="true"
             />
+
             <span className="visually-hidden">
               Next
             </span>
@@ -106,7 +122,6 @@ export default function HeroSlider({
         }
 
         .hero-slide {
-          height: 300px;
           object-fit: cover;
           object-position: center;
         }
@@ -121,7 +136,7 @@ export default function HeroSlider({
         }
 
         .carousel-control-prev-icon {
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23c1121f' d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3E%3C/svg%3E");
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23c1121f' d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3E%3C/svg%3E");
         }
 
         .carousel-control-next-icon {
@@ -144,11 +159,14 @@ export default function HeroSlider({
           border-color: #c1121f;
         }
 
-        @media (min-width: 576px) {
-          .hero-slide {
-            height: 380px;
+        @media (max-width: 575.98px) {
+          .hero-control-icon {
+            width: 30px;
+            height: 30px;
           }
+        }
 
+        @media (min-width: 576px) {
           .hero-control-icon {
             width: 36px;
             height: 36px;
@@ -156,29 +174,12 @@ export default function HeroSlider({
         }
 
         @media (min-width: 768px) {
-          .hero-slide {
-            height: 450px;
-          }
-
           .hero-control-icon {
             width: 42px;
             height: 42px;
-          }
-        }
-
-        @media (min-width: 992px) {
-          .hero-slide {
-            height: 500px;
-          }
-        }
-
-        @media (min-width: 1200px) {
-          .hero-slide {
-            height: 550px;
           }
         }
       `}</style>
     </section>
   );
 }
-

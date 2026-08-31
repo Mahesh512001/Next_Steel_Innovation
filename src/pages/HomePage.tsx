@@ -3,6 +3,9 @@ import ServiceBenefits from "../components/Benefits/ServiceBenefits";
 import CategorySection from "../components/Categories/CategorySection";
 
 import { heroSlides } from "../data/hero.data";
+import DesignerCollection from "../components/Designer/DesignerCollection";
+import CategoryCardSection from "../components/Designer/CategoryCardSection";
+import { kitchenCategories } from "../data/dashboard_category.data";
 
 export default function HomePage() {
   return (
@@ -25,6 +28,9 @@ export default function HomePage() {
       ================================================== */}
       <CategorySection />
 
+
+        <DesignerCollection />
+        <CategoryCardSection categoryName={"Kitchen"} cards={kitchenCategories}/>
 
       {/* =================================================
           TEMPORARY SECTION

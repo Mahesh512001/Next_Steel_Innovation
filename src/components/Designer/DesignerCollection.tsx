@@ -1,248 +1,272 @@
 
-import { useCallback,useEffect, useState } from "react";
-import type { DesignerSlide } from "../../types/designer.types";
 
-interface DesignerCollectionProps {
-  slides: DesignerSlide[];
-}
+import type { HeroSlide } from "../../types/hero.types";
+import HeroSlider from "../Hero/HeroSlider";
 
-export default function DesignerCollection({
-  slides,
-}: DesignerCollectionProps) {
-  const [currentSlide, setCurrentSlide] = useState(0);
+const designerSlides: HeroSlide[] = [
+  {
+    id: 1,
+    image: "./hero/hero4.png",
+    alt: "3-Shelf Mild Steel Wire Spice Rack",
+    label: <>Bathroom Accessories</>,
+  },
+  {
+    id: 2,
+    image: "./hero/hero5.png",
+    alt: "4-Tier Mild Steel Pipe Shoe Rack",
+    label: <>Mirror</>,
+  },
+  {
+    id: 3,
+    image: "./hero/hero6.png",
+    alt: "Mild Steel 9-Hook Door Hanger",
+    label: <>Wash Basin</>,
+  },
+];
 
-const nextSlide = useCallback( () => {
-    setCurrentSlide((current) =>
-      current === slides.length - 1 ? 0 : current + 1
-    );
-  }, [slides.length]);
-
-  const previousSlide = () => {
-    setCurrentSlide((current) =>
-      current === 0 ? slides.length - 1 : current - 1
-    );
-  };
-
-  useEffect(() => {
-    const timer = setInterval(nextSlide, 5000);
-
-    return () => clearInterval(timer);
-  }, [nextSlide]);
-
+export default function DesignerCollection() {
   return (
-    <section className="w-100 designer-section">
-      <div className="mx-auto designer-container">
+    <section className="designer-section py-4 px-3 px-sm-4">
+      <div className="container-fluid designer-container">
+        <div className="row g-3 g-lg-4 align-items-stretch">
 
-        <div className="d-flex flex-column flex-lg-row gap-3 gap-lg-4">
+          {/* =========================
+              LEFT CONTENT - 27%
+          ========================== */}
+          <div className="col-12 col-lg-3 designer-left-wrapper">
+            <div className="designer-left">
 
-          {/* LEFT */}
-          <div className="position-relative d-flex flex-column justify-content-center overflow-hidden rounded-3 bg-black designer-left">
+              {/* Decorative shapes */}
+              <div className="designer-shape designer-shape-one" />
+              <div className="designer-shape designer-shape-two" />
 
-            <div className="position-absolute designer-shape-one" />
+              <div className="position-relative z-1">
+                <h2 className="designer-title">
+                  Designed for
+                  <br />
+                  Better Living
+                </h2>
 
-            <div className="position-absolute designer-shape-two" />
+                <p className="designer-description">
+                  Discover smart steel solutions designed to keep
+                  your home organized, stylish and functional.
+                </p>
 
-          </div>
-
-          {/* RIGHT SLIDER */}
-          <div className="position-relative overflow-hidden rounded-3 bg-dark designer-slider">
-
-            {slides.map((slide, index) => (
-              <div
-                key={slide.id}
-                className={`position-absolute top-0 start-0 w-100 h-100 ${
-                  index === currentSlide ? "d-block" : "d-none"
-                }`}
-              >
-
-                <img
-                  src={slide.image}
-                  alt={slide.alt}
-                  loading="lazy"
-                  className="w-100 h-100 designer-image"
-                />
-
-                <div className="position-absolute bottom-0 end-0 mb-4 me-4 rounded bg-white designer-label">
-                  {slide.label}
-                </div>
-
+                <button
+                  type="button"
+                  className="btn designer-btn"
+                >
+                  Explore Collection
+                  <i className="bi bi-arrow-right ms-2" />
+                </button>
               </div>
-            ))}
 
-            {/* Previous */}
-            <button
-              aria-label="Previous designer collection"
-              onClick={previousSlide}
-              className="position-absolute top-50 start-0 translate-middle-y d-flex align-items-center justify-content-center rounded-circle bg-white border-0 designer-button designer-button-prev"
-            >
-              <i className="bi bi-chevron-left" />
-            </button>
-
-            {/* Next */}
-            <button
-              aria-label="Next designer collection"
-              onClick={nextSlide}
-              className="position-absolute top-50 end-0 translate-middle-y d-flex align-items-center justify-content-center rounded-circle bg-white border-0 designer-button designer-button-next"
-            >
-              <i className="bi bi-chevron-right" />
-            </button>
-
+            </div>
           </div>
+
+          {/* =========================
+              RIGHT SLIDER - 73%
+          ========================== */}
+          <div className="col-12 col-lg-9 designer-slider-wrapper">
+            <HeroSlider
+              slides={designerSlides}
+              interval={4000}
+              className="designer-slider"
+            />
+          </div>
+
         </div>
       </div>
 
       <style>{`
         .designer-section {
-          padding: 1.5rem 1rem;
+          width: 100%;
+          background: #ffffff;
         }
 
         .designer-container {
           max-width: 1900px;
+          margin: 0 auto;
+        }
+
+        /* =========================
+           LEFT PANEL
+        ========================== */
+
+        .designer-left-wrapper {
+          min-height: 300px;
         }
 
         .designer-left {
+          position: relative;
+          height: 100%;
           min-height: 300px;
-          width: 100%;
-          padding: 2.5rem 1.5rem;
+          overflow: hidden;
+          border-radius: 12px;
+          background: #000000;
+          padding: 40px 28px;
+          display: flex;
+          align-items: center;
         }
 
-        .designer-slider {
-          height: 300px;
-          width: 100%;
+        .designer-title {
+          margin: 0 0 15px;
+          color: #ffffff;
+          font-size: 30px;
+          line-height: 1.15;
+          font-weight: 700;
         }
 
-        .designer-image {
-          object-fit: cover;
-          object-position: center;
+        .designer-description {
+          max-width: 330px;
+          margin-bottom: 24px;
+          color: rgba(255, 255, 255, 0.75);
+          font-size: 14px;
+          line-height: 1.7;
         }
 
-        .designer-label {
-          margin-bottom: 1.75rem;
-          margin-right: 1.75rem;
-          padding: 0.75rem 1.5rem;
+        .designer-btn {
+          border: 0;
+          border-radius: 6px;
+          padding: 10px 18px;
+          background: #ffffff;
+          color: #111111;
           font-size: 14px;
           font-weight: 600;
-          color: #111827;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          transition: all 0.2s ease;
+        }
+
+        .designer-btn:hover {
+          background: #075d67;
+          color: #ffffff;
+          transform: translateY(-2px);
+        }
+
+        /* =========================
+           DECORATIVE SHAPES
+        ========================== */
+
+        .designer-shape {
+          position: absolute;
+          right: -35px;
+          top: -50px;
+          border-radius: 25px;
+          transform: rotate(45deg);
         }
 
         .designer-shape-one {
-          width: 128px;
-          height: 128px;
-          right: -32px;
-          top: -48px;
-          transform: rotate(45deg);
-          border-radius: 25px;
-          background-color: #075d67;
+          width: 130px;
+          height: 130px;
+          background: #075d67;
           opacity: 0.9;
         }
 
         .designer-shape-two {
-          width: 112px;
-          height: 112px;
+          width: 115px;
+          height: 115px;
           right: -8px;
           top: -28px;
-          transform: rotate(45deg);
           border-radius: 22px;
-          background-color: #0a6973;
+          background: #0a6973;
           opacity: 0.9;
         }
 
-        .designer-button {
-          width: 40px;
-          height: 40px;
-          margin-top: 0;
-          color: #c1121f;
-          font-size: 20px;
-          box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-          transition: all 0.3s ease;
-          z-index: 10;
+        /* =========================
+           RIGHT SLIDER
+        ========================== */
+
+        .designer-slider-wrapper {
+          min-height: 300px;
         }
 
-        .designer-button:hover {
-          transform: translateY(-50%) scale(1.05);
-          background-color: #fff5f5 !important;
+        .designer-slider {
+          height: 300px;
+          border-radius: 12px;
         }
 
-        .designer-button-prev {
-          left: 1rem !important;
+        .designer-slider .carousel,
+        .designer-slider .carousel-inner,
+        .designer-slider .carousel-item {
+          height: 100%;
         }
 
-        .designer-button-next {
-          right: 1rem !important;
+        .designer-slider .hero-slide {
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+        }
+
+        .designer-slider .carousel-control-prev {
+          justify-content: flex-start;
+          padding-left: 18px;
+        }
+
+        .designer-slider .carousel-control-next {
+          justify-content: flex-end;
+          padding-right: 18px;
+        }
+
+        .designer-slider .carousel-control-prev-icon,
+        .designer-slider .carousel-control-next-icon {
+          background-color: #ffffff;
+          border-radius: 50%;
+          background-size: 16px 16px;
+        }
+
+        .designer-slider .carousel-indicators {
+          bottom: 5px;
+        }
+
+        .designer-slider .carousel-indicators [data-bs-target] {
+          width: 9px;
+          height: 9px;
         }
 
         @media (min-width: 576px) {
-          .designer-section {
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-          }
-
           .designer-left {
-            padding-left: 2rem;
-            padding-right: 2rem;
+            min-height: 370px;
           }
 
           .designer-slider {
             height: 370px;
           }
 
-          .designer-shape-one {
-            width: 160px;
-            height: 160px;
-          }
-
-          .designer-shape-two {
-            width: 144px;
-            height: 144px;
+          .designer-title {
+            font-size: 34px;
           }
         }
 
         @media (min-width: 992px) {
-          .designer-section {
-            padding-left: 1.75rem;
-            padding-right: 1.75rem;
-          }
-
           .designer-left {
-            width: 27%;
             min-height: 425px;
-            padding-left: 1.75rem;
-            padding-right: 1.75rem;
           }
 
           .designer-slider {
-            width: 73%;
             height: 425px;
           }
 
-          .designer-button-prev {
-            left: 1.5rem !important;
+          .designer-left {
+            padding: 40px 28px;
           }
 
-          .designer-button-next {
-            right: 1.5rem !important;
+          .designer-title {
+            font-size: 32px;
           }
         }
 
         @media (min-width: 1200px) {
           .designer-left {
-            padding-left: 2rem;
-            padding-right: 2rem;
+            padding: 40px 32px;
+          }
+
+          .designer-title {
+            font-size: 36px;
           }
         }
 
-        @media (max-width: 767.98px) {
-          .designer-button {
-            width: 40px;
-            height: 40px;
-          }
-        }
-
-        @media (min-width: 768px) {
-          .designer-button {
-            width: 48px;
-            height: 48px;
+        @media (max-width: 991.98px) {
+          .designer-left {
+            min-height: 300px;
           }
         }
       `}</style>
