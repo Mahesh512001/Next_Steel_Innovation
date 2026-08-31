@@ -3,17 +3,17 @@ import type { HeroSlide } from "../types/hero.types";
 export const designerSlides: HeroSlide[] = [
   {
     id: 1,
-    image: "/images/hero/hero-1.jpg",
+    image: "/hero/hero1.png",
     alt: "Kitchen storage and organizer products",
   },
   {
     id: 2,
-    image: "/images/hero/hero-2.jpg",
+    image: "/hero/hero2.png",
     alt: "Modern kitchen organizer products",
   },
   {
     id: 3,
-    image: "/images/hero/hero-3.jpg",
+    image: "/hero/hero3.png",
     alt: "Steel kitchen storage products",
   },
 ];
