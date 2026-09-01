@@ -142,7 +142,7 @@ function Footer() {
                   </p>
 
                   <p className="footer-contact-value">
-                    +91 756 756 7500
+                    +91 884 054 6629
                   </p>
                 </div>
 
@@ -422,7 +422,7 @@ function Footer() {
       ================================================== */}
 
       <a
-        href="https://wa.me/7839072326"
+        href="https://wa.me/8840546629"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="WhatsApp"

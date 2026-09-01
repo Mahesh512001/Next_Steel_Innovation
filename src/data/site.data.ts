@@ -11,7 +11,7 @@ export const siteConfig: SiteConfig = {
 
   logo: "/images/Logo.png",
 
-  phone: "+91 756 756 7500",
+  phone: "+91 884 054 6629",
 
   email: "cs@nextsteelinnovation.com",
 };
