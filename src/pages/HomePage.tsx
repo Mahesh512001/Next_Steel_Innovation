@@ -5,7 +5,7 @@ import { designerSlides } from "../data/hero.data";
 
 import DesignerCollection from "../components/Designer/DesignerCollection";
 
-import { kitchenCategories } from "../data/dashboard_category.data";
+import { kitchenCategories } from "../data/kitchenCategories.data.";
 import DashboardCategoryCardSection from "../components/Designer/DashboardCategoryCardSection";
 
 
@@ -33,9 +33,18 @@ export default function HomePage() {
       <CategorySection />
 
 
-        <DesignerCollection />
+      
+
+      <DesignerCollection />
+      
       <DashboardCategoryCardSection
       categoryName="Kitchen"
+      cards={kitchenCategories}
+    />
+
+     
+      <DashboardCategoryCardSection
+      categoryName="Bathroom"
       cards={kitchenCategories}
     />
 
