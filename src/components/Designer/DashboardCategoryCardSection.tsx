@@ -1,5 +1,4 @@
-
-import CategoryCard from "./CategoryCards";
+import CategoryCard from "./DashboardCategoryCards";
 
 interface CategoryItem {
   label: string;
@@ -11,31 +10,36 @@ interface CategorySectionProps {
   cards: CategoryItem[];
 }
 
-export default function CategoryCardSection({
+export default function DashboardCategoryCardSection({
   categoryName,
   cards,
 }: CategorySectionProps) {
   return (
-    <section className="w-full px-5 lg:px-8 py-6">
+    <section className="container-fluid px-3 px-lg-4 py-4">
       {/* Heading */}
-      <div className="h-[84px] flex items-center justify-center border-2 border-[#10abc1] rounded-xl mb-6">
-        <h2 className="text-[32px] sm:text-[40px] font-semibold text-[#10abc1]">
+      <div className="d-flex align-items-center justify-content-center border border-2 rounded-3 mb-4 category-section-heading">
+        <h2 className="mb-0 fw-semibold category-section-title">
           {categoryName}
         </h2>
       </div>
 
-      {/* Categories */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Cards */}
+      <div className="row g-4">
         {cards.map((card, index) => (
-          <CategoryCard
+          <div
             key={`${card.label}-${index}`}
-            label={card.label}
-            image={card.image}
-          />
+            className="col-12 col-md-6 col-lg-4"
+          >
+            <CategoryCard
+              label={card.label}
+              image={card.image}
+            />
+          </div>
         ))}
       </div>
-    <style>
-      {`.category-section-heading {
+        <style>
+        {`
+        .category-section-heading {
   height: 84px;
   border: 2px solid #10abc1;
   border-radius: 12px;
@@ -48,6 +52,7 @@ export default function CategoryCardSection({
 
 .category-card {
   height: 320px;
+  transition: transform 0.3s ease;
 }
 
 .category-card-image {
@@ -59,13 +64,21 @@ export default function CategoryCardSection({
   transition: transform 0.5s ease;
 }
 
+.category-card:hover {
+  transform: translateY(-3px);
+}
+
 .category-card:hover .category-card-img {
   transform: scale(1.05);
 }
 
-/* Fallback card */
+/* Label */
+.category-card-label {
+  font-size: 16px;
+}
+
+/* Fallback */
 .category-card-placeholder {
-  width: 100%;
   background: #f5f6f8;
   border: 1px solid #e1e4e8;
 }
@@ -77,10 +90,28 @@ export default function CategoryCardSection({
 
 .category-card-placeholder span {
   font-size: 18px;
+  color: #6c757d;
+}
+
+/* Tablet */
+@media (max-width: 991.98px) {
+  .category-card,
+  .category-card-image {
+    height: 300px;
+  }
 }
 
 /* Mobile */
 @media (max-width: 767.98px) {
+  .category-section {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+
+  .category-section-heading {
+    height: 70px;
+  }
+
   .category-section-heading h2 {
     font-size: 32px;
   }
@@ -93,10 +124,12 @@ export default function CategoryCardSection({
   .category-card-icon {
     font-size: 60px;
   }
+
+  .category-card-placeholder span {
+    font-size: 16px;
+  }
 }`}
-    </style>
+      </style>
     </section>
-    
   );
 }
-

@@ -4,8 +4,12 @@ import CategorySection from "../components/Categories/CategorySection";
 import { designerSlides } from "../data/hero.data";
 
 import DesignerCollection from "../components/Designer/DesignerCollection";
-import CategoryCardSection from "../components/Designer/CategoryCardSection";
+
 import { kitchenCategories } from "../data/dashboard_category.data";
+import DashboardCategoryCardSection from "../components/Designer/DashboardCategoryCardSection";
+
+
+
 
 export default function HomePage() {
   return (
@@ -30,7 +34,10 @@ export default function HomePage() {
 
 
         <DesignerCollection />
-        <CategoryCardSection categoryName={"Kitchen"} cards={kitchenCategories}/>
+      <DashboardCategoryCardSection
+      categoryName="Kitchen"
+      cards={kitchenCategories}
+    />
 
       {/* =================================================
           TEMPORARY SECTION
@@ -42,7 +49,7 @@ export default function HomePage() {
         }}
       >
         <div className="px-4 text-center">
-
+[]
           <h2
             className="fw-bold"
             style={{

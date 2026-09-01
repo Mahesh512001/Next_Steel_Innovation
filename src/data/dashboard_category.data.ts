@@ -2,7 +2,7 @@
 export const kitchenCategories = [
   {
     label: "Kitchen Spice Rack",
-    image: "/images/categories/kitchen-spice-rack.webp",
+    image: "/products/kitchen-spice-rack/NSi-006/2.png",
   },
   {
     label: "Kitchen Trolley",
