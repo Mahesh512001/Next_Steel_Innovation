@@ -30,6 +30,9 @@ export default function Navbar({ navigation }: NavbarProps) {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
+   useEffect(() => {
+      searchInputRef.current?.focus();
+    }, []);
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -40,9 +43,7 @@ export default function Navbar({ navigation }: NavbarProps) {
       return;
     }
 
-    useEffect(() => {
-      searchInputRef.current?.focus();
-    }, []);
+   
 
     navigate(`/search?query=${encodeURIComponent(query)}`);
   };
@@ -222,37 +223,43 @@ export default function Navbar({ navigation }: NavbarProps) {
 
 
             {/* SEARCH INPUT */}
-            <form
-              className="d-flex align-items-center navbar-actions"
-              onSubmit={handleSearch}
-            >
-              <input
-                ref={searchInputRef}
-                type="text"
-                placeholder="Search products..."
-                aria-label="Search products"
-                className="navbar-search-input"
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-              />
+          <div className="d-flex align-items-center navbar-actions">
 
-              <button
-                type="submit"
-                aria-label="Search"
-                className="d-flex align-items-center justify-content-center rounded-circle navbar-action-button border-0 bg-transparent"
-              >
-                <i className="bi bi-search fs-5" />
-              </button>
+  {/* SEARCH */}
+  <form
+    className="d-flex align-items-center navbar-search"
+    onSubmit={handleSearch}
+  >
+    <input
+      ref={searchInputRef}
+      type="text"
+      placeholder="Search products..."
+      aria-label="Search products"
+      className="navbar-search-input"
+      value={searchText}
+      onChange={(e) => setSearchText(e.target.value)}
+    />
 
-              <button
-                type="button"
-                aria-label="Open menu"
-                className="d-flex d-lg-none align-items-center justify-content-center rounded-circle border-0 bg-transparent navbar-action-button"
-                onClick={() => setActiveMenu("mobile")}
-              >
-                <i className="bi bi-list fs-2" />
-              </button>
-            </form>
+    <button
+      type="submit"
+      aria-label="Search"
+      className="d-flex align-items-center justify-content-center rounded-circle navbar-action-button border-0 bg-transparent"
+    >
+      <i className="bi bi-search fs-5" />
+    </button>
+  </form>
+
+  {/* MOBILE MENU */}
+  <button
+    type="button"
+    aria-label="Open menu"
+    className="d-flex d-lg-none align-items-center justify-content-center rounded-circle border-0 bg-transparent navbar-action-button"
+    onClick={() => setActiveMenu("mobile")}
+  >
+    <i className="bi bi-list fs-2" />
+  </button>
+
+</div>
 
 
           </div>
