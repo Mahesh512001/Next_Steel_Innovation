@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage";
 import Footer from "./components/layout/Footer";
 import About from "./pages/About";
 import ScrollToTop from "./components/common/ScrollToTop";
+import SearchPage from "./pages/SearchPage";
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
           path="/category/:slug"
           element={<CategoryPage />}
         />
+        <Route path="/search" element={<SearchPage />} />
 
           {/* ABOUT */}
         <Route

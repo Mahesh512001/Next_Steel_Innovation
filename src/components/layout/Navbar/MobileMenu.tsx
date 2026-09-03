@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
+
 import type { NavigationItem } from "../../../types/navigation.types";
 import { siteConfig } from "../../../data/site.data";
 
@@ -24,6 +25,22 @@ export default function MobileMenu({
     setOpenDropdown(null);
     onClose();
   };
+
+  const [searchText, setSearchText] = useState("");
+const navigate = useNavigate();
+
+const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  const query = searchText.trim();
+
+  if (!query) {
+    navigate("/search");
+    return;
+  }
+
+  navigate(`/search?query=${encodeURIComponent(query)}`);
+};
 
   return (
     <>
@@ -65,16 +82,27 @@ export default function MobileMenu({
               SEARCH
           ================================================== */}
 
-          <div className="position-relative mb-5">
-            <input
-              aria-label="Search products"
-              className="form-control mobile-search"
-              placeholder="Search products..."
-              type="text"
-            />
+         <form
+  className="position-relative mb-5"
+  onSubmit={handleSearch}
+>
+  <input
+    aria-label="Search products"
+    className="form-control mobile-search pe-5"
+    placeholder="Search products..."
+    type="text"
+    value={searchText}
+    onChange={(e) => setSearchText(e.target.value)}
+  />
 
-            <i className="bi bi-search mobile-search-icon" />
-          </div>
+  <button
+    type="submit"
+    aria-label="Search products"
+    className="position-absolute top-50 end-0 translate-middle-y border-0 bg-transparent p-0 me-3"
+  >
+    <i className="bi bi-search mobile-search-icon" />
+  </button>
+</form>
 
           {/* =================================================
               MOBILE NAVIGATION
