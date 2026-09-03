@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import type { NavigationItem } from "../../../types/navigation.types";
@@ -24,21 +24,29 @@ export default function Navbar({ navigation }: NavbarProps) {
     setActiveMenu(null);
   };
 
+
+
   const [searchText, setSearchText] = useState("");
-const navigate = useNavigate();
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
-const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  const query = searchText.trim();
+    const query = searchText.trim();
 
-  if (!query) {
-    navigate("/search");
-    return;
-  }
+    if (!query) {
+      navigate("/search");
+      return;
+    }
 
-  navigate(`/search?query=${encodeURIComponent(query)}`);
-};
+    useEffect(() => {
+      searchInputRef.current?.focus();
+    }, []);
+
+    navigate(`/search?query=${encodeURIComponent(query)}`);
+  };
+
 
   return (
     <>
@@ -126,8 +134,8 @@ const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
 
                         <i
                           className={`bi bi-chevron-down navbar-chevron ${activeMenu === item.id
-                              ? "rotate-180"
-                              : ""
+                            ? "rotate-180"
+                            : ""
                             }`}
                         />
                       </button>
@@ -211,40 +219,41 @@ const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
                 RIGHT SIDE ACTIONS
             ================================================== */}
 
-            
 
-              {/* SEARCH INPUT */}
-              <form
-  className="d-flex align-items-center navbar-actions"
-  onSubmit={handleSearch}
->
-  <input
-    type="text"
-    placeholder="Search products..."
-    aria-label="Search products"
-    className="navbar-search-input"
-    value={searchText}
-    onChange={(e) => setSearchText(e.target.value)}
-  />
 
-  <button
-    type="submit"
-    aria-label="Search"
-    className="d-flex align-items-center justify-content-center rounded-circle navbar-action-button border-0 bg-transparent"
-  >
-    <i className="bi bi-search fs-5" />
-  </button>
+            {/* SEARCH INPUT */}
+            <form
+              className="d-flex align-items-center navbar-actions"
+              onSubmit={handleSearch}
+            >
+              <input
+                ref={searchInputRef}
+                type="text"
+                placeholder="Search products..."
+                aria-label="Search products"
+                className="navbar-search-input"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
 
-  <button
-    type="button"
-    aria-label="Open menu"
-    className="d-flex d-lg-none align-items-center justify-content-center rounded-circle border-0 bg-transparent navbar-action-button"
-    onClick={() => setActiveMenu("mobile")}
-  >
-    <i className="bi bi-list fs-2" />
-  </button>
-</form>
-            
+              <button
+                type="submit"
+                aria-label="Search"
+                className="d-flex align-items-center justify-content-center rounded-circle navbar-action-button border-0 bg-transparent"
+              >
+                <i className="bi bi-search fs-5" />
+              </button>
+
+              <button
+                type="button"
+                aria-label="Open menu"
+                className="d-flex d-lg-none align-items-center justify-content-center rounded-circle border-0 bg-transparent navbar-action-button"
+                onClick={() => setActiveMenu("mobile")}
+              >
+                <i className="bi bi-list fs-2" />
+              </button>
+            </form>
+
 
           </div>
         </div>
@@ -488,7 +497,8 @@ const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
 
         @media (max-width: 991.98px) {
           .navbar-search-input {
-            display: none;
+            display: block;
+
           }
         }
       `}</style>
